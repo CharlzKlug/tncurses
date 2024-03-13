@@ -1,4 +1,4 @@
-/* How to build: gcc -shared -o libhello.so -DUSE_TCL_STUBS -I /usr/include/tcl hello.c -ltclstub8.6 -lncurses -fPIC */
+/* How to build: gcc -shared -o libhello.so -DUSE_TCL_STUBS -I /usr/include/tcl tncurses.c -ltclstub8.6 -lncurses -fPIC */
 #include <tcl.h>
 #include <ncurses.h>
 
