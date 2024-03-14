@@ -1,7 +1,7 @@
 # tncurses
 Binded commands:
-initscr;
-printw;
-refresh;
-getch;
-endwin;
+- initscr;
+- printw;
+- refresh;
+- getch;
+- endwin;
