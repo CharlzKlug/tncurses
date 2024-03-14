@@ -6,7 +6,7 @@ proc showhelp {help} {
     wrefresh $help
     getch
     touchwin $help
-    # touchwin stdscr
+    touchwin stdscr
     refresh
 }
     

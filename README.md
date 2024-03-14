@@ -5,3 +5,10 @@ Binded commands:
 - refresh;
 - getch;
 - endwin;
+- newwin;
+- addstr;
+- mvwaddstr;
+- noecho;
+- wrefresh;
+- touchwin;
+- addch;

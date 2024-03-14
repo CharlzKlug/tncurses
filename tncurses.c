@@ -117,7 +117,7 @@ static int TouchWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   }
   char* buffer= Tcl_GetString(objv[1]);
   char stdscr_array[]= "stdscr";
-  if (buffer[1] == 's') {
+  if (strcmp(buffer, "stdscr") == 0) {
     touchwin(stdscr);
   } else {
     void* pointer= NULL;
@@ -160,7 +160,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "mvwaddstr", MvWAddStr_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "noecho", NoEcho_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "wrefresh", WRefresh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "touchwin", WRefresh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "touchwin", TouchWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "addch", AddCh_Cmd, NULL, NULL);
   return TCL_OK;
 }
