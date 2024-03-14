@@ -1,6 +1,7 @@
 /* How to build: gcc -shared -o libtncurses.so -DUSE_TCL_STUBS -I /usr/include/tcl tncurses.c -ltclstub8.6 -lncurses -fPIC */
 #include <tcl.h>
 #include <ncurses.h>
+#include <string.h>
 
 static int Initscr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   initscr();
@@ -53,7 +54,7 @@ static int NewWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   WINDOW *window= newwin(rows, cols, y_org, x_org);
 
   char hexstr[24];
-  sprintf(hexstr, "%p", (void*)&window);
+  sprintf(hexstr, "%p", (void*)window);
   Tcl_SetObjResult(interp, Tcl_NewStringObj(hexstr, -1));
   return TCL_OK;
 }
@@ -104,8 +105,8 @@ static int WRefresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
     Tcl_AppendResult(interp, "Bad scan", NULL);
     return TCL_ERROR;
   }
-  WINDOW* win= (WINDOW*)pointer;
-  wrefresh(win);
+  WINDOW* window= (WINDOW*)pointer;
+  wrefresh(window);
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -115,13 +116,28 @@ static int TouchWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
     return TCL_ERROR;
   }
   char* buffer= Tcl_GetString(objv[1]);
-  void* pointer= NULL;
-  if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) {
-    Tcl_AppendResult(interp, "Bad scan", NULL);
+  char stdscr_array[]= "stdscr";
+  if (buffer[1] == 's') {
+    touchwin(stdscr);
+  } else {
+    void* pointer= NULL;
+    if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) {
+      Tcl_AppendResult(interp, "Bad scan", NULL);
+      return TCL_ERROR;
+    }
+    WINDOW* win= (WINDOW*)pointer;
+    touchwin(win);
+  }
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
+static int AddCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  if (objc != 2) {
     return TCL_ERROR;
   }
-  WINDOW* win= (WINDOW*)pointer;
-  touchwin(win);
+  char* buffer= Tcl_GetString(objv[1]);
+  addch(*buffer);
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -145,5 +161,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "noecho", NoEcho_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "wrefresh", WRefresh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "touchwin", WRefresh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "addch", AddCh_Cmd, NULL, NULL);
   return TCL_OK;
 }
