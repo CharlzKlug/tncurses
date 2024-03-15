@@ -12,3 +12,5 @@ Binded commands:
 - wrefresh;
 - touchwin;
 - addch;
+- waddstr;
+- delwin;
