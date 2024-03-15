@@ -14,3 +14,4 @@ Binded commands:
 - addch;
 - waddstr;
 - delwin;
+- getmaxyx. Input: window pointer. Output: list with MaxY and MaxX;

@@ -184,6 +184,28 @@ static int DelWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   return TCL_OK;
 }
 
+static int GetMaxYX_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  if (objc != 2) {
+    Tcl_AppendResult(interp, "wrong # args", NULL);
+    return TCL_ERROR;
+  }
+  char* buffer= Tcl_GetString(objv[1]);
+  int maxy, maxx;
+  if (strcmp(buffer, "stdscr") == 0) {
+    getmaxyx(stdscr, maxy, maxx);
+  } else {
+    void* pointer= NULL;
+    if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) {
+      Tcl_AppendResult(interp, "Bad scan", NULL);
+      return TCL_ERROR;
+    }
+    WINDOW* win= (WINDOW*)pointer;
+    getmaxyx(win, maxy, maxx);
+  }
+  Tcl_SetObjResult(interp, Tcl_ObjPrintf("%d %d", maxy, maxx));
+  return TCL_OK;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -206,5 +228,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "addch", AddCh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "waddstr", WAddStr_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "delwin", DelWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "getmaxyx", GetMaxYX_Cmd, NULL, NULL);
   return TCL_OK;
 }
