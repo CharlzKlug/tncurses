@@ -1,0 +1,29 @@
+#ifndef TNCURSES_H
+#define TNCURSES_H
+
+#include <ncurses.h>
+
+#define COLORS_COUNT 8
+char *colors_strings[(COLORS_COUNT)] = {
+  "COLOR_BLACK",
+  "COLOR_RED",
+  "COLOR_GREEN",
+  "COLOR_YELLOW",
+  "COLOR_BLUE",
+  "COLOR_MAGENTA",
+  "COLOR_CYAN",
+  "COLOR_WHITE"
+};
+
+NCURSES_COLOR_T ncurses_colors[(COLORS_COUNT)] = {
+  COLOR_BLACK,
+  COLOR_RED,
+  COLOR_GREEN,
+  COLOR_YELLOW,
+  COLOR_BLUE,
+  COLOR_MAGENTA,
+  COLOR_CYAN,
+  COLOR_WHITE
+};
+
+#endif /* TNCURSES_H */

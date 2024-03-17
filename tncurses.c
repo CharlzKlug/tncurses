@@ -1,7 +1,19 @@
 /* How to build: gcc -shared -o libtncurses.so -DUSE_TCL_STUBS -I /usr/include/tcl tncurses.c -ltclstub8.6 -lncurses -fPIC */
 #include <tcl.h>
-#include <ncurses.h>
 #include <string.h>
+#include "tncurses.h"
+
+/* Auxiliary function. Maps string to color */
+int string_to_color(char *input_string,
+		    NCURSES_COLOR_T *output_color) {
+  for (int i = 0; i < (COLORS_COUNT); i++) {
+    if (strcmp(input_string, colors_strings[i]) == 0) {
+      *output_color= ncurses_colors[i];
+      return i;
+    }
+  }
+  return (-1);
+}
 
 static int Initscr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   initscr();
@@ -206,6 +218,72 @@ static int GetMaxYX_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_OK;
 }
 
+static int Start_Color_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  start_color();
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
+static int Init_Pair_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  if (objc != 4) {
+    Tcl_AppendResult(interp, "wrong # args", NULL);
+    return TCL_ERROR;
+  }
+
+  int pair_number;
+  if (Tcl_GetIntFromObj(interp, objv[1], &pair_number) == TCL_ERROR) {
+    Tcl_AppendResult(interp, "pair number must be integer", NULL);
+    return TCL_ERROR;
+  }
+
+  NCURSES_COLOR_T foreground_color;
+  if (string_to_color(Tcl_GetString(objv[2]), &foreground_color) == (-1)) {
+    Tcl_AppendResult(interp, "wrong foreground color", NULL);
+    return TCL_ERROR;
+  }
+
+  NCURSES_COLOR_T background_color;
+  if (string_to_color(Tcl_GetString(objv[3]), &background_color) == (-1)) {
+    Tcl_AppendResult(interp, "wrong background color", NULL);
+    return TCL_ERROR;
+  }
+
+  init_pair(pair_number, foreground_color, background_color);
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
+static int WBkgd_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  if (objc != 3) {
+    Tcl_AppendResult(interp, "wrong # args", NULL);
+    return TCL_ERROR;
+  }
+
+  char* buffer= Tcl_GetString(objv[1]);
+  WINDOW* win;
+    
+  if (strcmp(buffer, "stdscr") == 0) {
+    win= stdscr;
+  } else {
+    void* pointer= NULL;
+    if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) {
+      Tcl_AppendResult(interp, "Bad scan", NULL);
+      return TCL_ERROR;
+    }
+    win= (WINDOW*)pointer;
+  }
+
+  int color_pair_number;
+  if (Tcl_GetIntFromObj(interp, objv[2], &color_pair_number) == TCL_ERROR) {
+        Tcl_AppendResult(interp, "pair number must be integer", NULL);
+    return TCL_ERROR;
+  }
+
+  wbkgd(win, COLOR_PAIR(color_pair_number));
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -229,5 +307,8 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "waddstr", WAddStr_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "delwin", DelWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "getmaxyx", GetMaxYX_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "start_color", Start_Color_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "init_pair", Init_Pair_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "wbkgd", WBkgd_Cmd, NULL, NULL);
   return TCL_OK;
 }
