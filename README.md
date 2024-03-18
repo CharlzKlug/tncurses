@@ -18,3 +18,5 @@ Binded commands:
 - start_color;
 - init_pair;
 - wbkgd (no need for COLOR_PAIR). Usage: "wbkgd $window 2";
+- waddch;
+- wgetch;
