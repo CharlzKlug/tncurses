@@ -22,3 +22,4 @@ Binded commands:
 - wgetch;
 - subwin;
 - bkgd;
+- derwin;

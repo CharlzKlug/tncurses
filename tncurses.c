@@ -416,6 +416,62 @@ static int Bkgd_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *con
   return TCL_OK;
 }
 
+static int DerWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  if (objc != 6) {
+    Tcl_AppendResult(interp, "wrong # args", NULL);
+    return TCL_ERROR;
+  }
+
+  char* buffer= Tcl_GetString(objv[1]);
+  WINDOW* win;
+    
+  if (strcmp(buffer, "stdscr") == 0) {
+    win= stdscr;
+  } else {
+    void* pointer= NULL;
+    if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) {
+      Tcl_AppendResult(interp, "Bad scan", NULL);
+      return TCL_ERROR;
+    }
+    win= (WINDOW*)pointer;
+  }
+
+  int rows;
+  if (Tcl_GetIntFromObj(interp, objv[2], &rows) == TCL_ERROR) {
+    Tcl_AppendResult(interp, "Not int value!", NULL);
+    return TCL_ERROR;
+  }
+
+  int cols;
+  if (Tcl_GetIntFromObj(interp, objv[3], &cols) == TCL_ERROR) {
+    Tcl_AppendResult(interp, "Not int value!", NULL);
+    return TCL_ERROR;
+  }
+
+  int y;
+  if (Tcl_GetIntFromObj(interp, objv[4], &y) == TCL_ERROR) {
+    Tcl_AppendResult(interp, "Not int value!", NULL);
+    return TCL_ERROR;
+  }
+
+  int x;
+  if (Tcl_GetIntFromObj(interp, objv[5], &x) == TCL_ERROR) {
+    Tcl_AppendResult(interp, "Not int value!", NULL);
+    return TCL_ERROR;
+  }
+
+  WINDOW *window= derwin(win, rows, cols, y, x);
+  if (window == NULL) {
+    Tcl_AppendResult(interp, "Error in creating subwindow!", NULL);
+    return TCL_ERROR;
+  }
+
+  char hexstr[24];
+  sprintf(hexstr, "%p", (void*)window);
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(hexstr, -1));
+  return TCL_OK;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -446,5 +502,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "wgetch", WGetCh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "subwin", SubWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "bkgd", Bkgd_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "derwin", DerWin_Cmd, NULL, NULL);
   return TCL_OK;
 }
