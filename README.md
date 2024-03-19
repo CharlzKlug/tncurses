@@ -20,3 +20,5 @@ Binded commands:
 - wbkgd (no need for COLOR_PAIR). Usage: "wbkgd $window 2";
 - waddch;
 - wgetch;
+- subwin;
+- bkgd;
