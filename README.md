@@ -23,3 +23,4 @@ Binded commands:
 - subwin;
 - bkgd;
 - derwin;
+- wclear;
