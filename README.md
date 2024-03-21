@@ -24,3 +24,7 @@ Binded commands:
 - bkgd;
 - derwin;
 - wclear;
+- overlay;
+- overwrite;
+- copywin;
+- dupwin;
