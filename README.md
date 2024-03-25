@@ -28,3 +28,4 @@ Binded commands:
 - overwrite;
 - copywin;
 - dupwin;
+- scrollok;

@@ -11,7 +11,7 @@ set maxy [lindex $resolution 0]
 set maxx [lindex $resolution 1]
 
 set lister [newwin $maxy [expr {$maxx / 2}] 0 [expr {$maxx / 4}]]
-
+scrollok $lister TRUE
 set filename "Test_Scripts/122_scroll/gettysburg.txt"
 set fp [open $filename r]
 fconfigure $fp -buffering line

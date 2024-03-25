@@ -628,6 +628,21 @@ static int DupWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   return TCL_OK;
 }
 
+static int ScrollOk_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+  
+  int bool_value;
+  Tcl_GetIntFromObj(interp, objv[2], &bool_value);
+
+  scrollok(win, (bool)bool_value);
+  
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -664,5 +679,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "overwrite", OverWrite_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "copywin", CopyWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "dupwin", DupWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "scrollok", ScrollOk_Cmd, NULL, NULL);
   return TCL_OK;
 }
