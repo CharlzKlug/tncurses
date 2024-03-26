@@ -24,6 +24,19 @@
     }									\
   } while (0)
 
+#define STRING_TO_BOOL(string_buffer, bool_value) do {		\
+    if (strcmp(string_buffer, "true") == 0 ||			\
+	strcmp(string_buffer, "TRUE") == 0) {			\
+      bool_value= TRUE;						\
+    } else if (strcmp(string_buffer, "false") == 0 ||		\
+	       strcmp(string_buffer, "FALSE") == 0) {		\
+      bool_value= FALSE;					\
+    } else {							\
+      Tcl_AppendResult(interp, "Bad scan bool value", NULL);	\
+      return TCL_ERROR;						\
+    }								\
+  } while (0)
+
 
 /* Auxiliary function. Maps string to color */
 int string_to_color(char *input_string,
@@ -634,13 +647,64 @@ static int ScrollOk_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   WINDOW* win;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
   
-  int bool_value;
-  Tcl_GetIntFromObj(interp, objv[2], &bool_value);
-
-  scrollok(win, (bool)bool_value);
+  bool is_scroll;
+  STRING_TO_BOOL(Tcl_GetString(objv[2]), is_scroll);
+  
+  scrollok(win, is_scroll);
   
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
+}
+
+static int GetMaxY_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+  
+  int maxy= getmaxy(win);
+  char str[5];
+  sprintf(str, "%d", maxy);
+  
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
+static int MvPrintW_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(4, "wrong # args");
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[1], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[2], &x);
+
+  char *string = Tcl_GetString(objv[3]);
+
+  if (mvprintw(y, x, string) == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured", NULL);
+  return TCL_ERROR;
+}
+
+static int Scroll_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int result= scroll(win);
+  
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while scroll", NULL);
+  return TCL_ERROR;
 }
 
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
@@ -680,5 +744,8 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "copywin", CopyWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "dupwin", DupWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "scrollok", ScrollOk_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "getmaxy", GetMaxY_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "mvprintw", MvPrintW_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "scroll", Scroll_Cmd, NULL, NULL);
   return TCL_OK;
 }

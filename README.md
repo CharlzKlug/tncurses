@@ -29,3 +29,6 @@ Binded commands:
 - copywin;
 - dupwin;
 - scrollok;
+- getmaxy;
+- mvprintw;
+- scroll;
