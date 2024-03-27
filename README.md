@@ -32,3 +32,5 @@ Binded commands:
 - getmaxy;
 - mvprintw;
 - scroll;
+- scrl;
+- wscrl;

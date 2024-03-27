@@ -707,6 +707,43 @@ static int Scroll_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   return TCL_ERROR;
 }
 
+static int Scrl_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args");
+
+  int lines_number;
+  Tcl_GetIntFromObj(interp, objv[1], &lines_number);
+
+  int result= scrl(lines_number);
+  
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while scrl", NULL);
+  return TCL_ERROR;
+}
+
+static int WScrl_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int lines_number;
+  Tcl_GetIntFromObj(interp, objv[2], &lines_number);
+
+  int result= wscrl(win, lines_number);
+  
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while wscrl", NULL);
+  return TCL_ERROR;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -747,5 +784,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "getmaxy", GetMaxY_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvprintw", MvPrintW_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "scroll", Scroll_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "scrl", Scrl_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "wscrl", WScrl_Cmd, NULL, NULL);
   return TCL_OK;
 }
