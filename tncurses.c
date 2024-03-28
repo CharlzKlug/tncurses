@@ -744,6 +744,52 @@ static int WScrl_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
   return TCL_ERROR;
 }
 
+static int MvWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(4, "wrong # args");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[2], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[3], &x);
+  
+  int result= mvwin(win, y, x);
+  
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while mvwin", NULL);
+  return TCL_ERROR;
+}
+
+static int TouchLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(4, "wrong # args");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int start;
+  Tcl_GetIntFromObj(interp, objv[2], &start);
+
+  int count;
+  Tcl_GetIntFromObj(interp, objv[3], &count);
+  
+  int result= touchline(win, start, count);
+  
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while touchline", NULL);
+  return TCL_ERROR;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -786,5 +832,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "scroll", Scroll_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "scrl", Scrl_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "wscrl", WScrl_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "mvwin", MvWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "touchline", TouchLine_Cmd, NULL, NULL);
   return TCL_OK;
 }
