@@ -438,9 +438,26 @@ static int Bkgd_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *con
   }
 
   char* buffer= Tcl_GetString(objv[1]);
-  char input_char= buffer[0];
+  int input_val= -1;
+
+  if (buffer[0] >= '0' && buffer[0] <= '9') {
+    Tcl_GetIntFromObj(interp, objv[1], &input_val);
+  }
+
+  if (strlen(buffer) == 3 && buffer[0] == '\'' && buffer[2] == '\'') {
+    input_val= buffer[1];
+  }
+
+  if (strlen(buffer) == 1) {
+    input_val= buffer[0];
+  }
+
+  if (input_val == -1) {
+    Tcl_AppendResult(interp, "wrong argument", NULL);
+    return TCL_ERROR;
+  }
   
-  if (bkgd(input_char) == ERR) {
+  if (bkgd(input_val) == ERR) {
     Tcl_AppendResult(interp, "Error occured in bkgd function", NULL);
     return TCL_ERROR;
   }
@@ -794,10 +811,10 @@ static int COLOR_PAIR_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Ob
   int color_num;
   Tcl_GetIntFromObj(interp, objv[1], &color_num);
 
-  char result= COLOR_PAIR(color_num);
-  char str[2];
-  sprintf(str, "%c", result);
-  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  int result= COLOR_PAIR(color_num);
+  char int_str_buffer[10];
+  sprintf(int_str_buffer, "%d", result);
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(int_str_buffer, -1));
   return TCL_OK;
 }
 
