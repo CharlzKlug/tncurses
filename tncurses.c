@@ -437,12 +437,10 @@ static int Bkgd_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *con
     return TCL_ERROR;
   }
 
-  int color_pair;
-  if (Tcl_GetIntFromObj(interp, objv[1], &color_pair) == TCL_ERROR) {
-    return TCL_ERROR;
-  }
-
-  if (bkgd(COLOR_PAIR(color_pair)) == ERR) {
+  char* buffer= Tcl_GetString(objv[1]);
+  char input_char= buffer[0];
+  
+  if (bkgd(input_char) == ERR) {
     Tcl_AppendResult(interp, "Error occured in bkgd function", NULL);
     return TCL_ERROR;
   }
@@ -790,6 +788,19 @@ static int TouchLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
   return TCL_ERROR;
 }
 
+static int COLOR_PAIR_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args");
+
+  int color_num;
+  Tcl_GetIntFromObj(interp, objv[1], &color_num);
+
+  char result= COLOR_PAIR(color_num);
+  char str[2];
+  sprintf(str, "%c", result);
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -834,5 +845,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "wscrl", WScrl_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvwin", MvWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "touchline", TouchLine_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "COLOR_PAIR", COLOR_PAIR_Cmd, NULL, NULL);
   return TCL_OK;
 }

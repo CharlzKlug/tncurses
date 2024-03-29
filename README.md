@@ -34,3 +34,6 @@ Binded commands:
 - scroll;
 - scrl;
 - wscrl;
+- mvwin;
+- touchline;
+- COLOR_PAIR;

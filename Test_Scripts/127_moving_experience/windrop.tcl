@@ -10,7 +10,7 @@ set maxy [lindex $resolution 0]
 set maxx [lindex $resolution 1]
 
 set x [expr {($maxx - $TSIZE) / 2}]
-bkgd 32
+bkgd .
 refresh
 
 set b [newwin 1 $TSIZE 0 $x]
