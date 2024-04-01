@@ -9,7 +9,7 @@ init_pair 2 COLOR_RED COLOR_YELLOW
 
 set sonny [subwin stdscr 5 20 10 30]
 
-bkgd 1
+bkgd [COLOR_PAIR 1]
 addstr "Hello, son."
 wbkgd $sonny 2
 waddstr $sonny "Hello, Dad."
