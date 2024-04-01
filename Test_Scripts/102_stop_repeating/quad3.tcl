@@ -19,19 +19,19 @@ set b [newwin $halfy $halfx 0 $halfx]
 set c [newwin $halfy $halfx $halfy 0]
 set d [newwin $halfy $halfx $halfy $halfx]
 
-wbkgd $a 1
+wbkgd $a [COLOR_PAIR 1]
 mvwaddstr $a 0 0 "This is window A\n"
 wrefresh $a
 
-wbkgd $b 2
+wbkgd $b [COLOR_PAIR 2]
 mvwaddstr $b 0 0 "This is window B\n"
 wrefresh $b
 
-wbkgd $c 3
+wbkgd $c [COLOR_PAIR 3]
 mvwaddstr $c 0 0 "This is window C\n"
 wrefresh $c
 
-wbkgd $d 4
+wbkgd $d [COLOR_PAIR 4]
 mvwaddstr $d 0 0 "This is window D\n"
 wrefresh $d
 

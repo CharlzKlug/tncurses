@@ -19,11 +19,11 @@ set grandpa [newwin [expr {$maxy - 4}] [expr {$maxx - 10}] 2 5]
 set father [subwin $grandpa [expr {$maxy - 8}] [expr {$maxx - 20}] 4 10];
 set boy [subwin $father [expr {$maxy - 16}] [expr {$maxx - 40}] 8 20]
 
-wbkgd $grandpa 1
+wbkgd $grandpa [COLOR_PAIR 1]
 waddstr $grandpa "Grandpa"
-wbkgd $father 2
+wbkgd $father [COLOR_PAIR 2]
 waddstr $father "Father"
-wbkgd $boy 3
+wbkgd $boy [COLOR_PAIR 3]
 waddstr $boy "Boy"
 wrefresh $grandpa
 

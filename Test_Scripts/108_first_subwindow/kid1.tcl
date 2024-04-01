@@ -11,7 +11,7 @@ set sonny [subwin stdscr 5 20 10 30]
 
 bkgd [COLOR_PAIR 1]
 addstr "Hello, son."
-wbkgd $sonny 2
+wbkgd $sonny [COLOR_PAIR 2]
 waddstr $sonny "Hello, Dad."
 refresh
 getch

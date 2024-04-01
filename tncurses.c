@@ -308,13 +308,31 @@ static int WBkgd_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
     win= (WINDOW*)pointer;
   }
 
-  int color_pair_number;
-  if (Tcl_GetIntFromObj(interp, objv[2], &color_pair_number) == TCL_ERROR) {
-        Tcl_AppendResult(interp, "pair number must be integer", NULL);
+  buffer= Tcl_GetString(objv[2]);
+  int input_val= -1;
+
+  if (buffer[0] >= '0' && buffer[0] <= '9') {
+    Tcl_GetIntFromObj(interp, objv[2], &input_val);
+  }
+
+  if (strlen(buffer) == 3 && buffer[0] == '\'' && buffer[2] == '\'') {
+    input_val= buffer[1];
+  }
+
+  if (strlen(buffer) == 1) {
+    input_val= buffer[0];
+  }
+
+  if (input_val == -1) {
+    Tcl_AppendResult(interp, "wrong argument", NULL);
+    return TCL_ERROR;
+  }
+  
+  if (wbkgd(win, input_val) == ERR) {
+    Tcl_AppendResult(interp, "Error occured in bkgd function", NULL);
     return TCL_ERROR;
   }
 
-  wbkgd(win, COLOR_PAIR(color_pair_number));
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }

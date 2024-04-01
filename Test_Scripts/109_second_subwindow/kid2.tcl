@@ -14,9 +14,9 @@ set color_pair [COLOR_PAIR 1]
 set color_pair_length [string length $color_pair]
 bkgd [COLOR_PAIR 1]
 addstr "Hello, son, hello baby girl. My color_pair is '$color_pair'. Length is $color_pair_length"
-wbkgd $sonny 2
+wbkgd $sonny [COLOR_PAIR 2]
 waddstr $sonny "Hello, Dad."
-wbkgd $babygirl 3
+wbkgd $babygirl [COLOR_PAIR 3]
 waddstr $babygirl "Hello, Papa."
 refresh
 getch
