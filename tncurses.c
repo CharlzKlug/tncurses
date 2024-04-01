@@ -836,6 +836,28 @@ static int COLOR_PAIR_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Ob
   return TCL_OK;
 }
 
+static int NewPad_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args");
+
+  int rows_number;
+  Tcl_GetIntFromObj(interp, objv[1], &rows_number);
+
+  int cols_number;
+  Tcl_GetIntFromObj(interp, objv[0], &cols_number);
+
+  WINDOW *window= newpad(rows_number, cols_number);
+
+  if (window != NULL) {
+    char hexstr[24];
+    sprintf(hexstr, "%p", (void*)window);
+    Tcl_SetObjResult(interp, Tcl_NewStringObj(hexstr, -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "can't create new PAD", NULL);
+  return TCL_ERROR;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -881,5 +903,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "mvwin", MvWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "touchline", TouchLine_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "COLOR_PAIR", COLOR_PAIR_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "newpad", NewPad_Cmd, NULL, NULL);
   return TCL_OK;
 }
