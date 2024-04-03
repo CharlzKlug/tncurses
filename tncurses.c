@@ -843,7 +843,7 @@ static int NewPad_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   Tcl_GetIntFromObj(interp, objv[1], &rows_number);
 
   int cols_number;
-  Tcl_GetIntFromObj(interp, objv[0], &cols_number);
+  Tcl_GetIntFromObj(interp, objv[2], &cols_number);
 
   WINDOW *window= newpad(rows_number, cols_number);
 
