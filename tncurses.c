@@ -893,6 +893,37 @@ static int PRefresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
+static int SubPad_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(6, "wrong # args");
+
+  WINDOW* pad;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), pad);
+
+  int rows;
+  Tcl_GetIntFromObj(interp, objv[2], &rows);
+
+  int cols;
+  Tcl_GetIntFromObj(interp, objv[3], &cols);
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[4], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[5], &x);
+
+  WINDOW* sub_pad= subpad(pad, rows, cols, y, x);
+
+  if (sub_pad != NULL) {
+    char hexstr[24];
+    sprintf(hexstr, "%p", (void*)sub_pad);
+    Tcl_SetObjResult(interp, Tcl_NewStringObj(hexstr, -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "can't create new subpad", NULL);
+  return TCL_ERROR;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -940,5 +971,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "COLOR_PAIR", COLOR_PAIR_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "newpad", NewPad_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "prefresh", PRefresh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "subpad", SubPad_Cmd, NULL, NULL);
   return TCL_OK;
 }
