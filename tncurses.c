@@ -981,6 +981,29 @@ static int DoUpdate_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
+static int PEchoChar_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args");
+
+  WINDOW* pad;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), pad);
+
+  char *buffer= Tcl_GetString(objv[2]);
+  if (strlen(buffer) == 0) {
+    Tcl_AppendResult(interp, "no char argument!", NULL);
+    return TCL_ERROR;
+  }
+  char ch= buffer[0];
+  int result= pechochar(pad, ch);
+  
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while pechochar", NULL);
+  return TCL_ERROR;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -1031,5 +1054,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "subpad", SubPad_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "pnoutrefresh", PNOutRefresh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "doupdate", DoUpdate_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "pechochar", PEchoChar_Cmd, NULL, NULL);
   return TCL_OK;
 }
