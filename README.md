@@ -43,3 +43,6 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - pnoutrefresh;
 - doupdate;
 - pechochar;
+- slk_init;
+- slk_set;
+- slk_refresh;
