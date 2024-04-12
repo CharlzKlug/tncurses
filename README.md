@@ -46,3 +46,4 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - slk_init;
 - slk_set;
 - slk_refresh;
+- slk_restore;

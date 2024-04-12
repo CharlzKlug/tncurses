@@ -1058,6 +1058,20 @@ static int SLK_Refresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_O
   return TCL_ERROR;
 }
 
+static int SLK_Restore_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args");
+
+  int result= slk_restore();
+  
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while slk_restore", NULL);
+  return TCL_ERROR;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -1112,5 +1126,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "slk_init", SLK_Init_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "slk_set", SLK_Set_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "slk_refresh", SLK_Refresh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "slk_restore", SLK_Restore_Cmd, NULL, NULL);
   return TCL_OK;
 }
