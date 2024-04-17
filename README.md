@@ -1,9 +1,9 @@
 # tncurses
 Binded commands:
 - initscr;
-- printw;
+- printw (accept only string);
 - refresh;
-- getch;
+- getch (return int value!);
 - endwin;
 - newwin;
 - addstr;
@@ -48,3 +48,5 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - slk_refresh;
 - slk_restore;
 - slk_clear;
+- keypad;
+- KEY_F;

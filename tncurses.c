@@ -73,9 +73,9 @@ static int Refresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
 }
 
 static int GetCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  char ch= getch();
-  char str[2];
-  sprintf(str, "%c", ch);
+  int ch= getch();
+  char str[64];
+  sprintf(str, "%d", ch);
   Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
   return TCL_OK;
 }
@@ -1086,6 +1086,40 @@ static int SLK_Clear_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
   return TCL_ERROR;
 }
 
+static int KeyPad_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  bool enable_func_keys;
+  STRING_TO_BOOL(Tcl_GetString(objv[2]), enable_func_keys);
+  
+  int result= keypad(win, enable_func_keys);
+  
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while keypad", NULL);
+  return TCL_ERROR;
+}
+
+static int KEY_F_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args");
+
+  int number;
+  Tcl_GetIntFromObj(interp, objv[1], &number);
+  
+  int result= KEY_F(number);
+
+  char str[64];
+  sprintf(str, "%d", result);
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -1142,5 +1176,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "slk_refresh", SLK_Refresh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "slk_restore", SLK_Restore_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "slk_clear", SLK_Clear_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "keypad", KeyPad_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "KEY_F", KEY_F_Cmd, NULL, NULL);
   return TCL_OK;
 }
