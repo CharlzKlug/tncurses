@@ -50,3 +50,4 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - slk_clear;
 - keypad;
 - KEY_F;
+- NCURSES_MOUSE_VERSION;
