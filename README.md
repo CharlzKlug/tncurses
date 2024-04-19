@@ -51,3 +51,5 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - keypad;
 - KEY_F;
 - NCURSES_MOUSE_VERSION;
+- ALL_MOUSE_EVENTS;
+- mousemask;

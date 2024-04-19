@@ -3,11 +3,11 @@
 #include <string.h>
 #include "tncurses.h"
 
-#define CHECK_ARGUMENTS(arg_num, err_msg) do { \
-  if (objc != (arg_num)) {		       \
-  Tcl_AppendResult(interp, (err_msg), NULL);   \
-  return TCL_ERROR;			       \
-  }					       \
+#define CHECK_ARGUMENTS(arg_num, err_msg) do {		\
+    if (objc != (arg_num)) {				\
+      Tcl_AppendResult(interp, (err_msg), NULL);	\
+      return TCL_ERROR;					\
+    }							\
   } while (0)
 
 #define STRING_TO_WINDOW(string_buffer, window) do {			\
@@ -37,6 +37,19 @@
     }								\
   } while (0)
 
+#define STRING_TO_MMASK_T(string_buffer, somemask) do {			\
+    if (strcmp(string_buffer, "NULL") == 0) {				\
+      somemask= NULL;							\
+    } else {								\
+      void* pointer= NULL;						\
+      if (string_buffer == NULL ||					\
+	  sscanf(string_buffer, "%p", &pointer) != 1) {			\
+	Tcl_AppendResult(interp, "Bad scan", NULL);			\
+	return TCL_ERROR;						\
+      }									\
+      somemask= (mmask_t*)pointer;					\
+    }									\
+  } while (0)
 
 /* Auxiliary function. Maps string to color */
 int string_to_color(char *input_string,
@@ -1131,6 +1144,34 @@ static int NCURSES_MOUSE_VERSION_Cmd(ClientData cdata, Tcl_Interp *interp, int o
   return TCL_OK;
 }
 
+static int ALL_MOUSE_EVENTS_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args");
+
+  int result= ALL_MOUSE_EVENTS;
+
+  char str[64];
+  sprintf(str, "%d", result);
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
+static int MouseMask_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args");
+
+  int newmask;
+  Tcl_GetIntFromObj(interp, objv[1], &newmask);
+
+  mmask_t* oldmask;
+  STRING_TO_MMASK_T(Tcl_GetString(objv[2]), oldmask);
+  
+  mmask_t result= mousemask(newmask, oldmask);
+
+  char str[64];
+  sprintf(str, "%d", result);
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -1190,5 +1231,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "keypad", KeyPad_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "KEY_F", KEY_F_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "NCURSES_MOUSE_VERSION", NCURSES_MOUSE_VERSION_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "ALL_MOUSE_EVENTS", ALL_MOUSE_EVENTS_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "mousemask", MouseMask_Cmd, NULL, NULL);
   return TCL_OK;
 }
