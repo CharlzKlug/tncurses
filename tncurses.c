@@ -1146,11 +1146,76 @@ static int NCURSES_MOUSE_VERSION_Cmd(ClientData cdata, Tcl_Interp *interp, int o
 
 static int ALL_MOUSE_EVENTS_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(1, "wrong # args");
-
-  int result= ALL_MOUSE_EVENTS;
-
   char str[64];
-  sprintf(str, "%d", result);
+  sprintf(str, "%ld", ALL_MOUSE_EVENTS);
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
+static int ButtonsEvents_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args");
+  
+  char str[64];
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_RELEASED") == 0) {
+    sprintf(str, "%ld", BUTTON1_RELEASED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_PRESSED") == 0) {
+    sprintf(str, "%ld", BUTTON1_PRESSED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON1_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_DOUBLE_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON1_DOUBLE_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_TRIPLE_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON1_TRIPLE_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON2_RELEASED") == 0) {
+    sprintf(str, "%ld", BUTTON2_RELEASED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON2_PRESSED") == 0) {
+    sprintf(str, "%ld", BUTTON2_PRESSED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON2_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON2_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON2_DOUBLE_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON2_DOUBLE_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON2_TRIPLE_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON2_TRIPLE_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON3_RELEASED") == 0) {
+    sprintf(str, "%ld", BUTTON3_RELEASED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON3_PRESSED") == 0) {
+    sprintf(str, "%ld", BUTTON3_PRESSED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON3_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON3_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON3_DOUBLE_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON3_DOUBLE_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON3_TRIPLE_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON3_TRIPLE_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON4_RELEASED") == 0) {
+    sprintf(str, "%ld", BUTTON4_RELEASED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON4_PRESSED") == 0) {
+    sprintf(str, "%ld", BUTTON4_PRESSED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON4_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON4_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON4_DOUBLE_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON4_DOUBLE_CLICKED);
+  }
+  if (strcmp(Tcl_GetString(objv[0]), "BUTTON4_TRIPLE_CLICKED") == 0) {
+    sprintf(str, "%ld", BUTTON4_TRIPLE_CLICKED);
+  }
   Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
   return TCL_OK;
 }
@@ -1233,5 +1298,25 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "NCURSES_MOUSE_VERSION", NCURSES_MOUSE_VERSION_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "ALL_MOUSE_EVENTS", ALL_MOUSE_EVENTS_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mousemask", MouseMask_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON1_RELEASED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON1_PRESSED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON1_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON1_DOUBLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON1_TRIPLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON2_RELEASED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON2_PRESSED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON2_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON2_DOUBLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON2_TRIPLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON3_RELEASED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON3_PRESSED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON3_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON3_DOUBLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON3_TRIPLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON4_RELEASED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON4_PRESSED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON4_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON4_DOUBLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "BUTTON4_TRIPLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
   return TCL_OK;
 }
