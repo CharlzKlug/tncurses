@@ -1320,6 +1320,41 @@ static int MvAddCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
   return TCL_ERROR;
 }
 
+static int MvAddStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(4, "wrong # args");
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[1], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[2], &x);
+
+  char *str= Tcl_GetString(objv[3]);
+  
+  int result= mvaddstr(y, x, str);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while mvaddstr", NULL);
+  return TCL_ERROR;
+}
+
+static int Clear_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args");
+
+  int result= clear();
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while clear", NULL);
+  return TCL_ERROR;
+}
 
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
@@ -1407,5 +1442,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "move", Move_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "clrtoeol", ClrToEol_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvaddch", MvAddCh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "clear", Clear_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "mvaddstr", MvAddStr_Cmd, NULL, NULL);
   return TCL_OK;
 }

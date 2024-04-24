@@ -74,7 +74,9 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - BUTTON4_DOUBLE_CLICKED;
 - BUTTON4_TRIPLE_CLICKED;
 - KEY_MOUSE;
-- getmouse;
+- getmouse (return list with id, x, y, z, and bstate);
 - move;
 - clrtoeol;
 - mvaddch;
+- clear;
+- mvaddstr;
