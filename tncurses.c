@@ -1356,6 +1356,25 @@ static int Clear_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
   return TCL_ERROR;
 }
 
+static int Curs_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args");
+
+  int cursor_visibility;
+  Tcl_GetIntFromObj(interp, objv[1], &cursor_visibility);
+
+  int result= curs_set(cursor_visibility);
+
+  if(result != ERR) {
+    char str[4];
+    sprintf(str, "%d", result);
+    Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while curs_set", NULL);
+  return TCL_ERROR;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -1444,5 +1463,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "mvaddch", MvAddCh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "clear", Clear_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvaddstr", MvAddStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "curs_set", Curs_Set_Cmd, NULL, NULL);
   return TCL_OK;
 }
