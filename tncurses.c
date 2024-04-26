@@ -1375,6 +1375,29 @@ static int Curs_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
+static int Box_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(4, "wrong # args");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int verch;
+  Tcl_GetIntFromObj(interp, objv[2], &verch);
+
+  int horch;
+  Tcl_GetIntFromObj(interp, objv[3], &horch);
+
+  int result= box(win, verch, horch);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while box", NULL);
+  return TCL_ERROR;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -1464,5 +1487,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "clear", Clear_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvaddstr", MvAddStr_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "curs_set", Curs_Set_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "box", Box_Cmd, NULL, NULL);
   return TCL_OK;
 }
