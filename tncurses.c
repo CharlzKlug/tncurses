@@ -1382,10 +1382,14 @@ static int Box_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *cons
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
 
   int verch;
-  Tcl_GetIntFromObj(interp, objv[2], &verch);
+  if(Tcl_GetIntFromObj(interp, objv[2], &verch) == TCL_ERROR) {
+    verch= Tcl_GetString(objv[2])[0];
+  }
 
   int horch;
-  Tcl_GetIntFromObj(interp, objv[3], &horch);
+  if(Tcl_GetIntFromObj(interp, objv[3], &horch) == TCL_ERROR) {
+    horch= Tcl_GetString(objv[3])[0];
+  }
 
   int result= box(win, verch, horch);
 
