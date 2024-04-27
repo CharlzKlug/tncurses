@@ -1402,6 +1402,60 @@ static int Box_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *cons
   return TCL_ERROR;
 }
 
+static int Border_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(9, "wrong # args");
+
+  int ls;
+  if(Tcl_GetIntFromObj(interp, objv[1], &ls) == TCL_ERROR) {
+    ls= Tcl_GetString(objv[1])[0];
+  }
+    
+  int rs;
+  if(Tcl_GetIntFromObj(interp, objv[2], &rs) == TCL_ERROR) {
+    rs= Tcl_GetString(objv[2])[0];
+  }
+
+  int ts;
+  if(Tcl_GetIntFromObj(interp, objv[3], &ts) == TCL_ERROR) {
+    ts= Tcl_GetString(objv[3])[0];
+  }
+
+  int bs;
+  if(Tcl_GetIntFromObj(interp, objv[4], &bs) == TCL_ERROR) {
+    bs= Tcl_GetString(objv[4])[0];
+  }
+
+  int tl;
+  if(Tcl_GetIntFromObj(interp, objv[5], &tl) == TCL_ERROR) {
+    tl= Tcl_GetString(objv[5])[0];
+  }
+
+  int tr;
+  if(Tcl_GetIntFromObj(interp, objv[6], &tr) == TCL_ERROR) {
+    tr= Tcl_GetString(objv[6])[0];
+  }
+
+  int bl;
+  if(Tcl_GetIntFromObj(interp, objv[7], &bl) == TCL_ERROR) {
+    bl= Tcl_GetString(objv[7])[0];
+  }
+
+  int br;
+  if(Tcl_GetIntFromObj(interp, objv[8], &br) == TCL_ERROR) {
+    br= Tcl_GetString(objv[8])[0];
+  }
+
+  int result= border(ls, rs, ts, bs, tl, tr, bl, br);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while border", NULL);
+  return TCL_ERROR;
+}
+
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
@@ -1492,5 +1546,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "mvaddstr", MvAddStr_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "curs_set", Curs_Set_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "box", Box_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "border", Border_Cmd, NULL, NULL);
   return TCL_OK;
 }

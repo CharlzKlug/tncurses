@@ -3,7 +3,7 @@
 load ./libtncurses.so
 
 initscr
-box stdscr * *
+box stdscr | 205
 refresh
 getch
 
