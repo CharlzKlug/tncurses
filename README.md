@@ -89,3 +89,4 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - mvvline;
 - scr_dump;
 - scr_restore;
+- putwin. Accept window pointer and file name. Saves the window to file name. Return error if an error occured, otherwise return ok;
