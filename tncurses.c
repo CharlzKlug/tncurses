@@ -2,6 +2,7 @@
 #include <tcl.h>
 #include <string.h>
 #include "tncurses.h"
+#include "addch.h"
 
 static int Initscr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   initscr();
@@ -128,16 +129,6 @@ static int TouchWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
     WINDOW* win= (WINDOW*)pointer;
     touchwin(win);
   }
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
-}
-
-static int AddCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  if (objc != 2) {
-    return TCL_ERROR;
-  }
-  char* buffer= Tcl_GetString(objv[1]);
-  addch(*buffer);
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -294,33 +285,6 @@ static int WBkgd_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
     return TCL_ERROR;
   }
 
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
-}
-
-static int WAddCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  if (objc != 3) {
-    Tcl_AppendResult(interp, "wrong # args", NULL);
-    return TCL_ERROR;
-  }
-
-  char* buffer= Tcl_GetString(objv[1]);
-  WINDOW* win;
-    
-  if (strcmp(buffer, "stdscr") == 0) {
-    win= stdscr;
-  } else {
-    void* pointer= NULL;
-    if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) {
-      Tcl_AppendResult(interp, "Bad scan", NULL);
-      return TCL_ERROR;
-    }
-    win= (WINDOW*)pointer;
-  }
-
-  char ch;
-  ch= Tcl_GetString(objv[2])[0];
-  waddch(win, ch);
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -1238,27 +1202,6 @@ static int ClrToEol_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
-static int MvAddCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  CHECK_ARGUMENTS(4, "wrong # args");
-
-  int y;
-  Tcl_GetIntFromObj(interp, objv[1], &y);
-
-  int x;
-  Tcl_GetIntFromObj(interp, objv[2], &x);
-
-  char *str= Tcl_GetString(objv[3]);
-  
-  int result= mvaddch(y, x, str[0]);
-
-  if(result == OK) {
-    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-    return TCL_OK;
-  }
-
-  Tcl_AppendResult(interp, "error occured while mvaddch", NULL);
-  return TCL_ERROR;
-}
 
 static int MvAddStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(4, "wrong # args");
@@ -1677,5 +1620,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "scr_restore", Scr_Restore_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "putwin", PutWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "getwin", GetWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "mvwaddch", MvWAddCh_Cmd, NULL, NULL);
   return TCL_OK;
 }
