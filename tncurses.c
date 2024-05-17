@@ -3,6 +3,7 @@
 #include <string.h>
 #include "tncurses.h"
 #include "addch.h"
+#include "addchstr.h"
 
 static int Initscr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   initscr();
