@@ -4,8 +4,9 @@
 static int AddCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(2, "wrong # args");
 
-  char* buffer= Tcl_GetString(objv[1]);
-  int result= addch(*buffer);
+  int ch_value;
+  Tcl_GetIntFromObj(interp, objv[1], &ch_value);
+  int result= addch(ch_value);
 
   if(result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));

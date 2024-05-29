@@ -2,6 +2,7 @@
 #include <tcl.h>
 #include <string.h>
 #include "tncurses.h"
+#include "attributes.h"
 #include "addch.h"
 #include "addchstr.h"
 
@@ -1622,5 +1623,23 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "putwin", PutWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "getwin", GetWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvwaddch", MvWAddCh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_ATTRIBUTES", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_NORMAL", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_STANDOUT", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_UNDERLINE", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_REVERSE", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_BLINK", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_DIM", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_BOLD", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_ALTCHARSET", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_INVIS", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_PROTECT", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_HORIZONTAL", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_LEFT", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_LOW", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_RIGHT", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_TOP", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_VERTICAL", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_ITALIC", Attribute_Cmd, NULL, NULL);
   return TCL_OK;
 }

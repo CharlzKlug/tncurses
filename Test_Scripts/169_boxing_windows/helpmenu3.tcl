@@ -37,7 +37,7 @@ control::do {
     if {$char_view eq "+"} {
 	showhelp $help
     } else {
-	addch $char_view
+	addch [expr {$ch | [A_BLINK]}]
     }
 } while {$char_view ne "~"}
 
