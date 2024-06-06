@@ -1,6 +1,7 @@
 #!/usr/bin/env tclsh
 
 load ./libtncurses.so
+source ./mkchtype.tcl
 
 initscr
 refresh
@@ -37,9 +38,9 @@ wrefresh $d
 
 while true {
     set ch [wgetch $a]
-    waddch $b $ch
-    waddch $c $ch
-    waddch $d $ch
+    waddch $b [chtype $ch 0]
+    waddch $c [chtype $ch 0]
+    waddch $d [chtype $ch 0]
     wrefresh $b
     wrefresh $c
     wrefresh $d

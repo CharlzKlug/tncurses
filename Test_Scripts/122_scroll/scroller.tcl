@@ -2,6 +2,7 @@
 
 package require control
 load ./libtncurses.so
+source ./mkchtype.tcl
 
 initscr
 refresh
@@ -15,15 +16,10 @@ scrollok $lister TRUE
 set filename "Test_Scripts/122_scroll/gettysburg.txt"
 set fp [open $filename r]
 fconfigure $fp -buffering line
-# while {[gets $fp line] >= 0} {
-#     waddstr $lister $line\n
-#     wrefresh $lister
-# }
-
 while {![eof $fp]} {
     set file_char [read $fp 1]
     if {![eof $fp]} {
-	waddch $lister $file_char
+	waddch $lister [chtype $file_char 0]
 	wrefresh $lister
     }
 }

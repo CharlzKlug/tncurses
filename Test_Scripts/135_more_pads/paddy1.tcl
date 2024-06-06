@@ -2,6 +2,7 @@
 
 package require control
 load ./libtncurses.so
+source ./mkchtype.tcl
 
 set FILENAME "Test_Scripts/122_scroll/gettysburg.txt"
 set TALL 24
@@ -18,7 +19,7 @@ fconfigure $fp -buffering line
 while {![eof $fp]} {
     set file_char [read $fp 1]
     if {![eof $fp]} {
-	waddch $p $file_char
+	waddch $p [chtype $file_char 0]
     }
 }
 close $fp

@@ -23,10 +23,10 @@ static int WAddCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   WINDOW* win;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
 
-  char ch;
-  ch= Tcl_GetString(objv[2])[0];
+  int ch_value;
+  Tcl_GetIntFromObj(interp, objv[2], &ch_value);
 
-  int result= waddch(win, ch);
+  int result= waddch(win, ch_value);
 
   if(result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
