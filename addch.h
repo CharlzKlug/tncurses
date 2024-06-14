@@ -75,9 +75,10 @@ static int MvWAddCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   int x;
   Tcl_GetIntFromObj(interp, objv[3], &x);
 
-  char *str= Tcl_GetString(objv[4]);
+  int ch_value;
+  Tcl_GetIntFromObj(interp, objv[4], &ch_value);
   
-  int result= mvwaddch(window, y, x, str[0]);
+  int result= mvwaddch(window, y, x, ch_value);
 
   if(result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));

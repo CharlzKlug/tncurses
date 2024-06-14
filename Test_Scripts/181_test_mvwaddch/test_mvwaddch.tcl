@@ -1,6 +1,7 @@
 #!/usr/bin/env tclsh
 
 load ./libtncurses.so
+source ./mkchtype.tcl
 
 initscr
 
@@ -16,7 +17,7 @@ if {$two eq "NULL"} {
 }
 
 # waddstr $two "This is the new window created!\n"
-mvwaddch $two 2 3 *
+mvwaddch $two 2 3 [chtype * 0]
 wrefresh $two
 getch
 
