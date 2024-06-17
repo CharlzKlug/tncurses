@@ -33,6 +33,13 @@ NCURSES_COLOR_T ncurses_colors[(COLORS_COUNT)] = {
     }							\
   } while (0)
 
+#define CHECK_ARGUMENTS_GE(arg_num, err_msg) do {		\
+    if (objc < (arg_num)) {				\
+      Tcl_AppendResult(interp, (err_msg), NULL);	\
+      return TCL_ERROR;					\
+    }							\
+  } while (0)
+
 #define STRING_TO_WINDOW(string_buffer, window) do {			\
     if (strcmp(string_buffer, "stdscr") == 0) {				\
       window= stdscr;							\

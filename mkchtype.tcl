@@ -5,3 +5,12 @@ proc chtype {inputChar args} {
     }
     return $result
 }
+
+proc string-to-chtypes-lst {inputString} {
+    set intList {}
+    for {set i 0} {$i < [string length $inputString]} {incr i} {
+	set tmpVal [scan [string index $inputString $i] %c]
+	lappend intList $tmpVal
+    }
+    return $intList
+}
