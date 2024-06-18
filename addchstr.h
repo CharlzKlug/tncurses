@@ -25,4 +25,30 @@ static int AddChStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
+static int AddChNStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS_GE(3, "wrong # args");
+  chtype* chstr= malloc(sizeof(chtype) * (objc - 1));
+  
+  for (int i= 1; i < (objc - 1); i++) {
+    int tmp;
+    Tcl_GetIntFromObj(interp, objv[i], &tmp);
+    chstr[i-1]= tmp;
+  }
+  chstr[objc-2]= 0;
+
+  int n;
+  Tcl_GetIntFromObj(interp, objv[objc - 1], &n);
+  
+  int result= addchnstr(chstr, n);
+  free(chstr);
+  
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while addch", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ADDCHSTR_H */
