@@ -110,3 +110,6 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - A_TOP;
 - A_VERTICAL;
 - A_ITALIC;
+- addchstr;
+- addchnstr;
+- waddchstr;
