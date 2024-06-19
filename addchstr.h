@@ -2,16 +2,21 @@
 #define ADDCHSTR_H
 #include <stdlib.h>
 
+#define GET_CHTYPES(array_name, array_length, data_offset) do {		\
+  array_name= malloc(sizeof(chtype) * (array_length));			\
+  for (int i= 0; i < ((array_length) - 1); i++) {			\
+  int tmp;								\
+  Tcl_GetIntFromObj(interp, objv[i+(data_offset)], &tmp);		\
+  array_name[i]= tmp;							\
+  }									\
+  array_name[(array_length) - 1]= 0;					\
+  } while (0)
+
 static int AddChStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS_GE(2, "wrong # args");
-  chtype* chstr= malloc(sizeof(chtype) * objc);
-  
-  for (int i= 1; i < objc; i++) {
-    int tmp;
-    Tcl_GetIntFromObj(interp, objv[i], &tmp);
-    chstr[i-1]= tmp;
-  }
-  chstr[objc-1]= 0;
+
+  chtype* chstr;
+  GET_CHTYPES(chstr, objc, 1);
   
   int result= addchstr(chstr);
   free(chstr);
@@ -27,15 +32,10 @@ static int AddChStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
 
 static int AddChNStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS_GE(3, "wrong # args");
-  chtype* chstr= malloc(sizeof(chtype) * (objc - 1));
-  
-  for (int i= 1; i < (objc - 1); i++) {
-    int tmp;
-    Tcl_GetIntFromObj(interp, objv[i], &tmp);
-    chstr[i-1]= tmp;
-  }
-  chstr[objc-2]= 0;
 
+  chtype* chstr;
+  GET_CHTYPES(chstr, objc - 1, 1);
+  
   int n;
   Tcl_GetIntFromObj(interp, objv[objc - 1], &n);
   
