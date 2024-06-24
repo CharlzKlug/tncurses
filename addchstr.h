@@ -174,4 +174,34 @@ static int MvWAddChStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_O
   return TCL_ERROR;
 }
 
+static int MvWAddChNStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS_GE(6, "wrong # args");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[2], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[3], &x);
+
+  chtype* chstr;
+  GET_CHTYPES(chstr, objc - 4, 4);
+  
+  int n;
+  Tcl_GetIntFromObj(interp, objv[objc - 1], &n);
+  
+  int result= mvwaddchnstr(win, y, x, chstr, n);
+  free(chstr);
+  
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while mvwaddchnstr", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ADDCHSTR_H */
