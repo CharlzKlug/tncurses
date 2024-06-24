@@ -26,7 +26,7 @@ static int AddChStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
     return TCL_OK;
   }
   
-  Tcl_AppendResult(interp, "error occured while addch", NULL);
+  Tcl_AppendResult(interp, "error occured while addchstr", NULL);
   return TCL_ERROR;
 }
 
@@ -47,7 +47,7 @@ static int AddChNStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
     return TCL_OK;
   }
   
-  Tcl_AppendResult(interp, "error occured while addch", NULL);
+  Tcl_AppendResult(interp, "error occured while addchnstr", NULL);
   return TCL_ERROR;
 }
 
@@ -68,7 +68,7 @@ static int WAddChStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
     return TCL_OK;
   }
   
-  Tcl_AppendResult(interp, "error occured while addch", NULL);
+  Tcl_AppendResult(interp, "error occured while waddchstr", NULL);
   return TCL_ERROR;
 }
 
@@ -92,7 +92,7 @@ static int WAddChNStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Ob
     return TCL_OK;
   }
   
-  Tcl_AppendResult(interp, "error occured while addch", NULL);
+  Tcl_AppendResult(interp, "error occured while waddchnstr", NULL);
   return TCL_ERROR;
 }
 
@@ -116,7 +116,7 @@ static int MvAddChStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Ob
     return TCL_OK;
   }
   
-  Tcl_AppendResult(interp, "error occured while addch", NULL);
+  Tcl_AppendResult(interp, "error occured while mvaddchstr", NULL);
   return TCL_ERROR;
 }
 
@@ -143,7 +143,34 @@ static int MvAddChNStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_O
     return TCL_OK;
   }
   
-  Tcl_AppendResult(interp, "error occured while addch", NULL);
+  Tcl_AppendResult(interp, "error occured while mvaddchnstr", NULL);
+  return TCL_ERROR;
+}
+
+static int MvWAddChStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS_GE(5, "wrong # args");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+  
+  int y;
+  Tcl_GetIntFromObj(interp, objv[2], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[3], &x);
+  
+  chtype* chstr;
+  GET_CHTYPES(chstr, (objc - 3), 4);
+  
+  int result= mvwaddchstr(win, y, x, chstr);
+  free(chstr);
+  
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while mvwaddchstr", NULL);
   return TCL_ERROR;
 }
 
