@@ -5,7 +5,7 @@ source ./mkchtype.tcl
 
 initscr
 
-mvaddchstr 10 10 {*}[string-to-chtypes-lst "hello there!"]
+mvaddchstr 0 5 {*}[string-to-chtypes-lst "hello there!"]
 refresh
 getch
 

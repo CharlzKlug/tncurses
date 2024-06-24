@@ -120,4 +120,31 @@ static int MvAddChStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Ob
   return TCL_ERROR;
 }
 
+static int MvAddChNStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS_GE(5, "wrong # args");
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[1], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[2], &x);
+
+  chtype* chstr;
+  GET_CHTYPES(chstr, objc - 3, 3);
+  
+  int n;
+  Tcl_GetIntFromObj(interp, objv[objc - 1], &n);
+  
+  int result= mvaddchnstr(y, x, chstr, n);
+  free(chstr);
+  
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while addch", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ADDCHSTR_H */
