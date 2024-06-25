@@ -23,7 +23,7 @@ noecho
 while 1 {
     set ch [getch]
     refresh
-    addch [format "%c" $ch]
+    addch $ch
     if {[format "%c" $ch] eq "+"} {showhelp $help}
     if {[format "%c" $ch] eq "~"} break
 }

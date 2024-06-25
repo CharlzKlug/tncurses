@@ -5,6 +5,7 @@
 #include "attributes.h"
 #include "addch.h"
 #include "addchstr.h"
+#include "addstr.h"
 
 static int Initscr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   initscr();
@@ -62,14 +63,6 @@ static int NewWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   return TCL_OK;
 }
 
-static int AddStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  if (objc != 2) {
-    return TCL_ERROR;
-  }
-  addstr(Tcl_GetString(objv[1]));
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
-}
 
 static int MvWAddStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   if (objc != 5) {
