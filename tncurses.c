@@ -128,26 +128,6 @@ static int TouchWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_OK;
 }
 
-static int WAddStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  if (objc != 3) {
-    Tcl_AppendResult(interp, "wrong # args", NULL);
-    return TCL_ERROR;
-  }
-  char* buffer= Tcl_GetString(objv[1]);
-  if (strcmp(buffer, "stdscr") == 0) {
-    waddstr(stdscr, Tcl_GetString(objv[2]));
-  } else {
-    void* pointer= NULL;
-    if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) {
-      Tcl_AppendResult(interp, "Bad scan", NULL);
-      return TCL_ERROR;
-    }
-    WINDOW* win= (WINDOW*)pointer;
-    waddstr(win, Tcl_GetString(objv[2]));
-  }
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
-}
 
 static int DelWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   if (objc != 2) {
