@@ -17,7 +17,6 @@ while {1} {
 	set y [lindex $mevent_list 2]
 	set x [lindex $mevent_list 1]
 	mvaddch [lindex $mevent_list 2] [lindex $mevent_list 1] [chtype * 0]
-	# mvaddch 43 183 [chtype * 0]
 	move 0 0
 	printw "[lindex $mevent_list 2]\t[lindex $mevent_list 1]"
 	refresh
