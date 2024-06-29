@@ -97,4 +97,29 @@ static int MvAddStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
+static int MvAddNStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(5, "wrong # args");
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[1], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[2], &x);
+
+  char *str= Tcl_GetString(objv[3]);
+
+  int n;
+  Tcl_GetIntFromObj(interp, objv[4], &n);
+  
+  int result= mvaddnstr(y, x, str, n);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while mvaddnstr", NULL);
+  return TCL_ERROR;
+}
+
 #endif /* ADDSTR_H */
