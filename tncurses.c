@@ -1602,5 +1602,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "addnstr", AddNStr_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "waddnstr", WAddNStr_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvaddnstr", MvAddNStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "mvwaddnstr", MvWAddNStr_Cmd, NULL, NULL);
   return TCL_OK;
 }
