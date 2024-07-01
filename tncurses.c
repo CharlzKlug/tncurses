@@ -64,26 +64,26 @@ static int NewWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
 }
 
 
-static int MvWAddStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  if (objc != 5) {
-    return TCL_ERROR;
-  }
-  char* buffer= Tcl_GetString(objv[1]);
-  void* pointer= NULL;
-  if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) {
-    Tcl_AppendResult(interp, "Bad scan", NULL);
-    return TCL_ERROR;
-  }
-  WINDOW* win= (WINDOW*)pointer;
-  int y_org;
-  Tcl_GetIntFromObj(interp, objv[2], &y_org);
-  int x_org;
-  Tcl_GetIntFromObj(interp, objv[3], &x_org);
-  char* strbuf= Tcl_GetString(objv[4]);
-  mvwaddstr(win, y_org, x_org, strbuf);
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
-}
+/* static int MvWAddStr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) { */
+/*   if (objc != 5) { */
+/*     return TCL_ERROR; */
+/*   } */
+/*   char* buffer= Tcl_GetString(objv[1]); */
+/*   void* pointer= NULL; */
+/*   if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) { */
+/*     Tcl_AppendResult(interp, "Bad scan", NULL); */
+/*     return TCL_ERROR; */
+/*   } */
+/*   WINDOW* win= (WINDOW*)pointer; */
+/*   int y_org; */
+/*   Tcl_GetIntFromObj(interp, objv[2], &y_org); */
+/*   int x_org; */
+/*   Tcl_GetIntFromObj(interp, objv[3], &x_org); */
+/*   char* strbuf= Tcl_GetString(objv[4]); */
+/*   mvwaddstr(win, y_org, x_org, strbuf); */
+/*   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1)); */
+/*   return TCL_OK; */
+/* } */
 
 static int NoEcho_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   noecho();
