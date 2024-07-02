@@ -59,6 +59,9 @@ static int Attribute_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
   if (strcmp(Tcl_GetString(objv[0]), "A_ITALIC") == 0) {
     sprintf(str, "%d", A_ITALIC);
   }
+  if (strcmp(Tcl_GetString(objv[0]), "A_COLOR") == 0) {
+    sprintf(str, "%d", A_COLOR);
+  }
   Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
   return TCL_OK;
 }
@@ -77,6 +80,19 @@ static int Attr_Get_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
 
   Tcl_AppendResult(interp, "error occured while attr_get", NULL);
   return TCL_ERROR;
+}
+
+static int AttrSet_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args");
+
+  int attrs;
+  Tcl_GetIntFromObj(interp, objv[1], &attrs);
+
+  /* return value is not important */
+  attrset(attrs);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
 }
 
 #endif	/* ATTRIBUTES_H */

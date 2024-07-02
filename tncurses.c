@@ -1592,5 +1592,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "COLOR_CYAN", ColorCode_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "COLOR_WHITE", ColorCode_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "attr_get", Attr_Get_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "attrset", AttrSet_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "A_COLOR", Attribute_Cmd, NULL, NULL);
   return TCL_OK;
 }
