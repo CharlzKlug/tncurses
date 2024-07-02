@@ -63,4 +63,20 @@ static int Attribute_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
   return TCL_OK;
 }
 
+static int Attr_Get_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args");
+
+  attr_t attributes;
+  short cpair;
+  int result= attr_get(&attributes, &cpair, NULL);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_ObjPrintf("%d %d", attributes, cpair));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while attr_get", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
