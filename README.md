@@ -121,3 +121,12 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - waddnstr;
 - mvaddnstr;
 - mvwaddnstr;
+- assume_default_colors;
+- COLOR_BLACK;
+- COLOR_RED;
+- COLOR_GREEN;
+- COLOR_YELLOW;
+- COLOR_BLUE;
+- COLOR_MAGENTA;
+- COLOR_CYAN;
+- COLOR_WHITE;
