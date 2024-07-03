@@ -133,3 +133,4 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - attr_get;
 - attrset;
 - A_COLOR;
+- attr_off;
