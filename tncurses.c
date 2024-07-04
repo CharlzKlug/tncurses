@@ -1598,5 +1598,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "attr_on", Attr_On_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "attroff", AttrOff_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "wattroff", WAttrOff_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "attron", AttrOn_Cmd, NULL, NULL);
   return TCL_OK;
 }

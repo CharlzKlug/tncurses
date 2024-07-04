@@ -175,4 +175,22 @@ static int WAttrOff_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
+static int AttrOn_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"attron attributes\"");
+
+  int attrs;
+  Tcl_GetIntFromObj(interp, objv[1], &attrs);
+
+  /* return value is not important */
+  int result= attron(attrs);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while attron", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
