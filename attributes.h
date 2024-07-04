@@ -154,4 +154,25 @@ static int AttrOff_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
   return TCL_ERROR;
 }
 
+static int WAttrOff_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"wattroff window attributes\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int attrs;
+  Tcl_GetIntFromObj(interp, objv[2], &attrs);
+
+  /* return value is not important */
+  int result= wattroff(win, attrs);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while wattroff", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
