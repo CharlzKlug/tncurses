@@ -193,4 +193,25 @@ static int AttrOn_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   return TCL_ERROR;
 }
 
+static int WAttrOn_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"wattron window attributes\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int attrs;
+  Tcl_GetIntFromObj(interp, objv[2], &attrs);
+
+  /* return value is not important */
+  int result= wattron(win, attrs);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while wattron", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
