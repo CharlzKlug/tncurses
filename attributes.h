@@ -125,10 +125,15 @@ static int Attr_On_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
   Tcl_GetIntFromObj(interp, objv[1], &attrs);
 
   /* return value is not important */
-  attr_on(attrs, NULL);
+  int result= attr_on(attrs, NULL);
 
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while attr_on", NULL);
+  return TCL_ERROR;
 }
 
 #endif	/* ATTRIBUTES_H */
