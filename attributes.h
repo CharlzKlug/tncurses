@@ -89,10 +89,15 @@ static int AttrSet_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
   Tcl_GetIntFromObj(interp, objv[1], &attrs);
 
   /* return value is not important */
-  attrset(attrs);
+  int result= attrset(attrs);
 
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while attr_set", NULL);
+  return TCL_ERROR;
 }
 
 static int Attr_Off_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
@@ -102,10 +107,15 @@ static int Attr_Off_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   Tcl_GetIntFromObj(interp, objv[1], &attrs);
 
   /* return value is not important */
-  attr_off(attrs, NULL);
+  int result= attr_off(attrs, NULL);
 
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while attr_off", NULL);
+  return TCL_ERROR;
 }
 
 static int Attr_On_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
