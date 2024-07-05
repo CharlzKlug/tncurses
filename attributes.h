@@ -214,4 +214,25 @@ static int WAttrOn_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
   return TCL_ERROR;
 }
 
+static int WAttrSet_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"wattrset window attributes\"");
+
+  WINDOW* window;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), window);
+
+  int attrs;
+  Tcl_GetIntFromObj(interp, objv[2], &attrs);
+
+  /* return value is not important */
+  int result= wattrset(window, attrs);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while wattrset", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
