@@ -235,4 +235,21 @@ static int WAttrSet_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
+static int Color_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"color_set color_pair_number\"");
+
+  int color_pair_number;
+  Tcl_GetIntFromObj(interp, objv[1], &color_pair_number);
+
+  int result= color_set(color_pair_number, NULL);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while color_set", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
