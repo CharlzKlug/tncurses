@@ -83,7 +83,7 @@ static int Attr_Get_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
 }
 
 static int AttrSet_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  CHECK_ARGUMENTS(2, "wrong # args");
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"attrset attributes\"");
 
   int attrs;
   Tcl_GetIntFromObj(interp, objv[1], &attrs);
