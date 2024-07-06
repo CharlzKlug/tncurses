@@ -140,3 +140,4 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - wattron;
 - wattrset;
 - color_set (accepts only one argument --- color pair);
+- wcolor_set;

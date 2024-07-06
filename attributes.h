@@ -252,4 +252,24 @@ static int Color_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
   return TCL_ERROR;
 }
 
+static int WColor_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"wcolor_set window color_pair_number\"");
+
+  WINDOW* window;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), window);
+  
+  int color_pair_number;
+  Tcl_GetIntFromObj(interp, objv[2], &color_pair_number);
+
+  int result= wcolor_set(window, color_pair_number, NULL);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while wcolor_set", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
