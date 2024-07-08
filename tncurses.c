@@ -1603,5 +1603,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "wattrset", WAttrSet_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "color_set", Color_Set_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "wcolor_set", WColor_Set_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "standend", Standend_Cmd, NULL, NULL);
   return TCL_OK;
 }
