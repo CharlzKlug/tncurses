@@ -286,4 +286,21 @@ static int Standend_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
+static int WStandend_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"wstandend window\"");
+
+  WINDOW* window;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), window);
+
+  int result= wstandend(window);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while wstandend", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
