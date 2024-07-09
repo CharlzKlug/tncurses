@@ -1606,5 +1606,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "standend", Standend_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "wstandend", WStandend_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "standout", StandOut_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "wattr_get", WAttr_Get_Cmd, NULL, NULL);
   return TCL_OK;
 }
