@@ -145,3 +145,4 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - wstandend;
 - standout;
 - wattr_get;
+- wattr_off;

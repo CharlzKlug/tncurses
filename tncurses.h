@@ -54,6 +54,20 @@ NCURSES_COLOR_T ncurses_colors[(COLORS_COUNT)] = {
     }									\
   } while (0)
 
+#define STRING_TO_VOID(string_buffer, voidptr) do {			\
+    if (strcmp(string_buffer, "NULL") == 0) {				\
+      voidptr= NULL;							\
+    } else {								\
+      void* pointer= NULL;						\
+      if (string_buffer == NULL ||					\
+	  sscanf(string_buffer, "%p", &pointer) != 1) {			\
+	Tcl_AppendResult(interp, "Bad scan", NULL);			\
+	return TCL_ERROR;						\
+      }									\
+      voidptr= (void*)pointer;						\
+    }									\
+  } while (0)
+
 #define STRING_TO_BOOL(string_buffer, bool_value) do {		\
     if (strcmp(string_buffer, "true") == 0 ||			\
 	strcmp(string_buffer, "TRUE") == 0) {			\
