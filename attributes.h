@@ -360,4 +360,28 @@ static int WAttr_Off_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
   return TCL_ERROR;
 }
 
+static int WAttr_On_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(4, "wrong # args: \"wattr_on window attributes opts\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int attrs;
+  Tcl_GetIntFromObj(interp, objv[2], &attrs);
+
+  void* opts;
+  STRING_TO_VOID(Tcl_GetString(objv[3]), opts);
+
+  /* return value is not important */
+  int result= wattr_on(win, attrs, opts);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while wattr_on", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
