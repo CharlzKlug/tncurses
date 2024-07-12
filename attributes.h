@@ -96,7 +96,7 @@ static int AttrSet_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
     return TCL_OK;
   }
   
-  Tcl_AppendResult(interp, "error occured while attr_set", NULL);
+  Tcl_AppendResult(interp, "error occured while attrset", NULL);
   return TCL_ERROR;
 }
 
