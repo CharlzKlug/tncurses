@@ -384,4 +384,27 @@ static int WAttr_On_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
+static int Attr_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(4, "wrong # args: should be \"attr_set attributes pair opts\"");
+
+  int attrs;
+  Tcl_GetIntFromObj(interp, objv[1], &attrs);
+
+  int pair;
+  Tcl_GetIntFromObj(interp, objv[2], &pair);
+  
+  void* opts;
+  STRING_TO_VOID(Tcl_GetString(objv[3]), opts);
+
+  int result= attr_set(attrs, pair, opts);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while attr_set", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */

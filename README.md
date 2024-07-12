@@ -147,3 +147,4 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - wattr_get;
 - wattr_off;
 - wattr_on;
+- attr_set;
