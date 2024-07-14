@@ -433,4 +433,30 @@ static int WAttr_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
   return TCL_ERROR;
 }
 
+static int ChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(5, "wrong # args: should be \"chgat numberChars attribute color opts\"");
+
+  int n;
+  Tcl_GetIntFromObj(interp, objv[1], &n);
+  
+  int attr;
+  Tcl_GetIntFromObj(interp, objv[2], &attr);
+
+  int color;
+  Tcl_GetIntFromObj(interp, objv[3], &color);
+  
+  void* opts;
+  STRING_TO_VOID(Tcl_GetString(objv[4]), opts);
+
+  int result= chgat(n, attr, color, opts);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while chgat", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
