@@ -459,4 +459,33 @@ static int ChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
   return TCL_ERROR;
 }
 
+static int WChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(6, "wrong # args: should be \"wchgat window numberChars attribute color opts\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int n;
+  Tcl_GetIntFromObj(interp, objv[2], &n);
+  
+  int attr;
+  Tcl_GetIntFromObj(interp, objv[3], &attr);
+
+  int color;
+  Tcl_GetIntFromObj(interp, objv[4], &color);
+  
+  void* opts;
+  STRING_TO_VOID(Tcl_GetString(objv[5]), opts);
+
+  int result= wchgat(win, n, attr, color, opts);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while wchgat", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */
