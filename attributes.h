@@ -488,4 +488,36 @@ static int WChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   return TCL_ERROR;
 }
 
+static int MvChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(7, "wrong # args: should be \"mvchgat y x numberChars attribute color opts\"");
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[1], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[2], &x);
+  
+  int n;
+  Tcl_GetIntFromObj(interp, objv[3], &n);
+  
+  int attr;
+  Tcl_GetIntFromObj(interp, objv[4], &attr);
+
+  int color;
+  Tcl_GetIntFromObj(interp, objv[5], &color);
+  
+  void* opts;
+  STRING_TO_VOID(Tcl_GetString(objv[6]), opts);
+
+  int result= mvchgat(y, x, n, attr, color, opts);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+  
+  Tcl_AppendResult(interp, "error occured while mvchgat", NULL);
+  return TCL_ERROR;
+}
+
 #endif	/* ATTRIBUTES_H */

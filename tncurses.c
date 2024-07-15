@@ -1613,5 +1613,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "wattr_set", WAttr_Set_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "chgat", ChGAt_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "wchgat", WChGAt_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "mvchgat", MvChGAt_Cmd, NULL, NULL);
   return TCL_OK;
 }
