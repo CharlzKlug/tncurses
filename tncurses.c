@@ -10,7 +10,7 @@
 
 static int Initscr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   initscr();
-  
+
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -115,7 +115,7 @@ static int DelWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   }
 
   WINDOW* win;
-  
+
   char* buffer= Tcl_GetString(objv[1]);
   if (strcmp(buffer, "stdscr") == 0) {
     win= stdscr;
@@ -202,7 +202,7 @@ static int WBkgd_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
 
   char* buffer= Tcl_GetString(objv[1]);
   WINDOW* win;
-    
+
   if (strcmp(buffer, "stdscr") == 0) {
     win= stdscr;
   } else {
@@ -233,7 +233,7 @@ static int WBkgd_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
     Tcl_AppendResult(interp, "wrong argument", NULL);
     return TCL_ERROR;
   }
-  
+
   if (wbkgd(win, input_val) == ERR) {
     Tcl_AppendResult(interp, "Error occured in bkgd function", NULL);
     return TCL_ERROR;
@@ -251,7 +251,7 @@ static int WGetCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
 
   char* buffer= Tcl_GetString(objv[1]);
   WINDOW* win;
-    
+
   if (strcmp(buffer, "stdscr") == 0) {
     win= stdscr;
   } else {
@@ -280,7 +280,7 @@ static int SubWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
 
   char* buffer= Tcl_GetString(objv[1]);
   WINDOW* win;
-    
+
   if (strcmp(buffer, "stdscr") == 0) {
     win= stdscr;
   } else {
@@ -353,7 +353,7 @@ static int Bkgd_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *con
     Tcl_AppendResult(interp, "wrong argument", NULL);
     return TCL_ERROR;
   }
-  
+
   if (bkgd(input_val) == ERR) {
     Tcl_AppendResult(interp, "Error occured in bkgd function", NULL);
     return TCL_ERROR;
@@ -371,7 +371,7 @@ static int DerWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
 
   char* buffer= Tcl_GetString(objv[1]);
   WINDOW* win;
-    
+
   if (strcmp(buffer, "stdscr") == 0) {
     win= stdscr;
   } else {
@@ -427,7 +427,7 @@ static int WClear_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
 
   char* buffer= Tcl_GetString(objv[1]);
   WINDOW* win;
-    
+
   if (strcmp(buffer, "stdscr") == 0) {
     win= stdscr;
   } else {
@@ -445,7 +445,7 @@ static int WClear_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
     Tcl_AppendResult(interp, "Error occured", NULL);
     return TCL_ERROR;
   }
-  
+
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -455,17 +455,17 @@ static int Overlay_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
 
   WINDOW* srcwin;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), srcwin);
-  
+
   WINDOW* dstwin;
   STRING_TO_WINDOW(Tcl_GetString(objv[2]), dstwin);
-  
+
   int result= overlay(srcwin, dstwin);
 
   if (result == ERR) {
     Tcl_AppendResult(interp, "Error occured", NULL);
     return TCL_ERROR;
   }
-  
+
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -475,17 +475,17 @@ static int OverWrite_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
 
   WINDOW* srcwin;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), srcwin);
-  
+
   WINDOW* dstwin;
   STRING_TO_WINDOW(Tcl_GetString(objv[2]), dstwin);
-  
+
   int result= overwrite(srcwin, dstwin);
 
   if (result == ERR) {
     Tcl_AppendResult(interp, "Error occured", NULL);
     return TCL_ERROR;
   }
-  
+
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -495,7 +495,7 @@ static int CopyWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
 
   WINDOW* srcwin;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), srcwin);
-  
+
   WINDOW* dstwin;
   STRING_TO_WINDOW(Tcl_GetString(objv[2]), dstwin);
 
@@ -520,7 +520,7 @@ static int CopyWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
   int overlay;
   Tcl_GetIntFromObj(interp, objv[9], &overlay);
 
-  
+
   int result= copywin(srcwin, dstwin, sminrow,
 		      smincol, dminrow, dmincol,
 		      dmaxrow, dmaxcol, overlay);
@@ -529,7 +529,7 @@ static int CopyWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
     Tcl_AppendResult(interp, "Error occured", NULL);
     return TCL_ERROR;
   }
-  
+
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -539,7 +539,7 @@ static int DupWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
 
   WINDOW* srcwin;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), srcwin);
-  
+
   WINDOW* result= dupwin(srcwin);
 
   if (result == NULL) {
@@ -558,12 +558,12 @@ static int ScrollOk_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
 
   WINDOW* win;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
-  
+
   bool is_scroll;
   STRING_TO_BOOL(Tcl_GetString(objv[2]), is_scroll);
-  
+
   scrollok(win, is_scroll);
-  
+
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -573,11 +573,11 @@ static int GetMaxY_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
 
   WINDOW* win;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
-  
+
   int maxy= getmaxy(win);
   char str[5];
   sprintf(str, "%d", maxy);
-  
+
   Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
   return TCL_OK;
 }
@@ -597,7 +597,7 @@ static int MvPrintW_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured", NULL);
   return TCL_ERROR;
 }
@@ -609,12 +609,12 @@ static int Scroll_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
 
   int result= scroll(win);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while scroll", NULL);
   return TCL_ERROR;
 }
@@ -626,12 +626,12 @@ static int Scrl_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *con
   Tcl_GetIntFromObj(interp, objv[1], &lines_number);
 
   int result= scrl(lines_number);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while scrl", NULL);
   return TCL_ERROR;
 }
@@ -646,12 +646,12 @@ static int WScrl_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
   Tcl_GetIntFromObj(interp, objv[2], &lines_number);
 
   int result= wscrl(win, lines_number);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while wscrl", NULL);
   return TCL_ERROR;
 }
@@ -667,14 +667,14 @@ static int MvWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
 
   int x;
   Tcl_GetIntFromObj(interp, objv[3], &x);
-  
+
   int result= mvwin(win, y, x);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while mvwin", NULL);
   return TCL_ERROR;
 }
@@ -690,14 +690,14 @@ static int TouchLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
 
   int count;
   Tcl_GetIntFromObj(interp, objv[3], &count);
-  
+
   int result= touchline(win, start, count);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while touchline", NULL);
   return TCL_ERROR;
 }
@@ -762,12 +762,12 @@ static int PRefresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   Tcl_GetIntFromObj(interp, objv[7], &smaxcol);
 
   int result= prefresh(pad, pminrow, pmincol, sminrow, smincol, smaxrow, smaxcol);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while prefresh", NULL);
   return TCL_ERROR;
 }
@@ -828,12 +828,12 @@ static int PNOutRefresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_
   Tcl_GetIntFromObj(interp, objv[7], &smaxcol);
 
   int result= pnoutrefresh(pad, pminrow, pmincol, sminrow, smincol, smaxrow, smaxcol);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while prefresh", NULL);
   return TCL_ERROR;
 }
@@ -842,12 +842,12 @@ static int DoUpdate_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   CHECK_ARGUMENTS(1, "wrong # args");
 
   int result= doupdate();
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while prefresh", NULL);
   return TCL_ERROR;
 }
@@ -865,12 +865,12 @@ static int PEchoChar_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
   }
   char ch= buffer[0];
   int result= pechochar(pad, ch);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while pechochar", NULL);
   return TCL_ERROR;
 }
@@ -880,14 +880,14 @@ static int SLK_Init_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
 
   int mode;
   Tcl_GetIntFromObj(interp, objv[1], &mode);
-  
+
   int result= slk_init(mode);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while slk_init", NULL);
   return TCL_ERROR;
 }
@@ -903,14 +903,14 @@ static int SLK_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
 
   int fmt;
   Tcl_GetIntFromObj(interp, objv[3], &fmt);
-  
+
   int result= slk_set(label_num, label_text, fmt);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while slk_set", NULL);
   return TCL_ERROR;
 }
@@ -919,12 +919,12 @@ static int SLK_Refresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_O
   CHECK_ARGUMENTS(1, "wrong # args");
 
   int result= slk_refresh();
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while slk_refresh", NULL);
   return TCL_ERROR;
 }
@@ -933,12 +933,12 @@ static int SLK_Restore_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_O
   CHECK_ARGUMENTS(1, "wrong # args");
 
   int result= slk_restore();
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while slk_restore", NULL);
   return TCL_ERROR;
 }
@@ -947,12 +947,12 @@ static int SLK_Clear_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
   CHECK_ARGUMENTS(1, "wrong # args");
 
   int result= slk_clear();
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while slk_clear", NULL);
   return TCL_ERROR;
 }
@@ -965,14 +965,14 @@ static int KeyPad_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
 
   bool enable_func_keys;
   STRING_TO_BOOL(Tcl_GetString(objv[2]), enable_func_keys);
-  
+
   int result= keypad(win, enable_func_keys);
-  
+
   if (result == OK) {
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while keypad", NULL);
   return TCL_ERROR;
 }
@@ -982,7 +982,7 @@ static int KEY_F_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
 
   int number;
   Tcl_GetIntFromObj(interp, objv[1], &number);
-  
+
   int result= KEY_F(number);
 
   char str[64];
@@ -1012,7 +1012,7 @@ static int ALL_MOUSE_EVENTS_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, 
 
 static int ButtonsEvents_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(1, "wrong # args");
-  
+
   char str[64];
   if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_RELEASED") == 0) {
     sprintf(str, "%ld", BUTTON1_RELEASED);
@@ -1086,7 +1086,7 @@ static int MouseMask_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
 
   mmask_t* oldmask;
   STRING_TO_MMASK_T(Tcl_GetString(objv[2]), oldmask);
-  
+
   mmask_t result= mousemask(newmask, oldmask);
 
   char str[64];
@@ -1130,7 +1130,7 @@ static int Move_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *con
   Tcl_GetIntFromObj(interp, objv[1], &y);
   int x;
   Tcl_GetIntFromObj(interp, objv[2], &x);
-  
+
   int result= move(y, x);
 
   if(result == OK) {
@@ -1223,7 +1223,7 @@ static int Border_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   if(Tcl_GetIntFromObj(interp, objv[1], &ls) == TCL_ERROR) {
     ls= Tcl_GetString(objv[1])[0];
   }
-    
+
   int rs;
   if(Tcl_GetIntFromObj(interp, objv[2], &rs) == TCL_ERROR) {
     rs= Tcl_GetString(objv[2])[0];
@@ -1277,7 +1277,7 @@ static int HLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
   if(Tcl_GetIntFromObj(interp, objv[1], &ch) == TCL_ERROR) {
     ch= Tcl_GetString(objv[1])[0];
   }
-    
+
   int n;
   Tcl_GetIntFromObj(interp, objv[2], &n);
 
@@ -1299,7 +1299,7 @@ static int VLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
   if(Tcl_GetIntFromObj(interp, objv[1], &ch) == TCL_ERROR) {
     ch= Tcl_GetString(objv[1])[0];
   }
-    
+
   int n;
   Tcl_GetIntFromObj(interp, objv[2], &n);
 
@@ -1322,12 +1322,12 @@ static int MvHLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
 
   int x;
   Tcl_GetIntFromObj(interp, objv[2], &x);
-  
+
   int ch;
   if(Tcl_GetIntFromObj(interp, objv[3], &ch) == TCL_ERROR) {
     ch= Tcl_GetString(objv[3])[0];
   }
-    
+
   int n;
   Tcl_GetIntFromObj(interp, objv[4], &n);
 
@@ -1350,12 +1350,12 @@ static int MvVLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
 
   int x;
   Tcl_GetIntFromObj(interp, objv[2], &x);
-  
+
   int ch;
   if(Tcl_GetIntFromObj(interp, objv[3], &ch) == TCL_ERROR) {
     ch= Tcl_GetString(objv[3])[0];
   }
-    
+
   int n;
   Tcl_GetIntFromObj(interp, objv[4], &n);
 
@@ -1413,7 +1413,7 @@ static int PutWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
     Tcl_AppendResult(interp, "can't open file while putwin", NULL);
     return TCL_ERROR;
   }
-  
+
   int result= putwin(win, wfile);
   fclose(wfile);
   if(result == OK) {
@@ -1437,7 +1437,7 @@ static int GetWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
     Tcl_AppendResult(interp, "can't open file while getwin", NULL);
     return TCL_ERROR;
   }
-  
+
   WINDOW *window= getwin(wfile);
   fclose(wfile);
 
@@ -1614,5 +1614,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "chgat", ChGAt_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "wchgat", WChGAt_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvchgat", MvChGAt_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "mvwchgat", MvWChGAt_Cmd, NULL, NULL);
   return TCL_OK;
 }

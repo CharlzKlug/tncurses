@@ -95,7 +95,7 @@ static int AttrSet_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while attrset", NULL);
   return TCL_ERROR;
 }
@@ -113,7 +113,7 @@ static int Attr_Off_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while attr_off", NULL);
   return TCL_ERROR;
 }
@@ -131,7 +131,7 @@ static int Attr_On_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while attr_on", NULL);
   return TCL_ERROR;
 }
@@ -149,7 +149,7 @@ static int AttrOff_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while attroff", NULL);
   return TCL_ERROR;
 }
@@ -170,7 +170,7 @@ static int WAttrOff_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while wattroff", NULL);
   return TCL_ERROR;
 }
@@ -188,7 +188,7 @@ static int AttrOn_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while attron", NULL);
   return TCL_ERROR;
 }
@@ -209,7 +209,7 @@ static int WAttrOn_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while wattron", NULL);
   return TCL_ERROR;
 }
@@ -257,7 +257,7 @@ static int WColor_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Ob
 
   WINDOW* window;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), window);
-  
+
   int color_pair_number;
   Tcl_GetIntFromObj(interp, objv[2], &color_pair_number);
 
@@ -347,7 +347,7 @@ static int WAttr_Off_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
 
   void* opts;
   STRING_TO_VOID(Tcl_GetString(objv[3]), opts);
-  
+
   /* return value is not important */
   int result= wattr_off(win, attrs, opts);
 
@@ -355,7 +355,7 @@ static int WAttr_Off_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while wattr_off", NULL);
   return TCL_ERROR;
 }
@@ -379,7 +379,7 @@ static int WAttr_On_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while wattr_on", NULL);
   return TCL_ERROR;
 }
@@ -392,7 +392,7 @@ static int Attr_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
 
   int pair;
   Tcl_GetIntFromObj(interp, objv[2], &pair);
-  
+
   void* opts;
   STRING_TO_VOID(Tcl_GetString(objv[3]), opts);
 
@@ -402,7 +402,7 @@ static int Attr_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while attr_set", NULL);
   return TCL_ERROR;
 }
@@ -412,13 +412,13 @@ static int WAttr_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
 
   WINDOW* win;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
-  
+
   int attrs;
   Tcl_GetIntFromObj(interp, objv[2], &attrs);
 
   int pair;
   Tcl_GetIntFromObj(interp, objv[3], &pair);
-  
+
   void* opts;
   STRING_TO_VOID(Tcl_GetString(objv[4]), opts);
 
@@ -428,7 +428,7 @@ static int WAttr_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while wattr_set", NULL);
   return TCL_ERROR;
 }
@@ -438,13 +438,13 @@ static int ChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
 
   int n;
   Tcl_GetIntFromObj(interp, objv[1], &n);
-  
+
   int attr;
   Tcl_GetIntFromObj(interp, objv[2], &attr);
 
   int color;
   Tcl_GetIntFromObj(interp, objv[3], &color);
-  
+
   void* opts;
   STRING_TO_VOID(Tcl_GetString(objv[4]), opts);
 
@@ -454,7 +454,7 @@ static int ChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while chgat", NULL);
   return TCL_ERROR;
 }
@@ -467,13 +467,13 @@ static int WChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
 
   int n;
   Tcl_GetIntFromObj(interp, objv[2], &n);
-  
+
   int attr;
   Tcl_GetIntFromObj(interp, objv[3], &attr);
 
   int color;
   Tcl_GetIntFromObj(interp, objv[4], &color);
-  
+
   void* opts;
   STRING_TO_VOID(Tcl_GetString(objv[5]), opts);
 
@@ -483,7 +483,7 @@ static int WChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while wchgat", NULL);
   return TCL_ERROR;
 }
@@ -496,16 +496,16 @@ static int MvChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
 
   int x;
   Tcl_GetIntFromObj(interp, objv[2], &x);
-  
+
   int n;
   Tcl_GetIntFromObj(interp, objv[3], &n);
-  
+
   int attr;
   Tcl_GetIntFromObj(interp, objv[4], &attr);
 
   int color;
   Tcl_GetIntFromObj(interp, objv[5], &color);
-  
+
   void* opts;
   STRING_TO_VOID(Tcl_GetString(objv[6]), opts);
 
@@ -515,8 +515,42 @@ static int MvChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while mvchgat", NULL);
+  return TCL_ERROR;
+}
+static int MvWChGAt_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(8, "wrong # args: should be \"wmvchgat window y x numberChars attribute color opts\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[2], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[3], &x);
+
+  int n;
+  Tcl_GetIntFromObj(interp, objv[4], &n);
+
+  int attr;
+  Tcl_GetIntFromObj(interp, objv[5], &attr);
+
+  int color;
+  Tcl_GetIntFromObj(interp, objv[6], &color);
+
+  void* opts;
+  STRING_TO_VOID(Tcl_GetString(objv[7]), opts);
+
+  int result= mvwchgat(win, y, x, n, attr, color, opts);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while mvwchgat", NULL);
   return TCL_ERROR;
 }
 
