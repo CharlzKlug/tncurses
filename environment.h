@@ -14,4 +14,17 @@ static int BaudRate_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int EraseChar_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"erasechar\"");
+
+  char erase_char= erasechar();
+
+  char str[4];
+  sprintf(str, "%c", erase_char);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
 #endif /* ENVIRONMENT_H */
