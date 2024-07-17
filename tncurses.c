@@ -7,6 +7,7 @@
 #include "addchstr.h"
 #include "addstr.h"
 #include "colors.h"
+#include "environment.h"
 
 static int Initscr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   initscr();
@@ -1582,7 +1583,8 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "waddnstr", WAddNStr_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvaddnstr", MvAddNStr_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvwaddnstr", MvWAddNStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "assume_default_colors", Assume_Default_Colors_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "assume_default_colors",
+		       Assume_Default_Colors_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "COLOR_BLACK", ColorCode_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "COLOR_RED", ColorCode_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "COLOR_GREEN", ColorCode_Cmd, NULL, NULL);
@@ -1615,5 +1617,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, "wchgat", WChGAt_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvchgat", MvChGAt_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, "mvwchgat", MvWChGAt_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, "baudrate", BaudRate_Cmd, NULL, NULL);
   return TCL_OK;
 }
