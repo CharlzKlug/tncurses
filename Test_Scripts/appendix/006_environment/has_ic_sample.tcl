@@ -1,6 +1,8 @@
 #!/usr/bin/env tclsh
 
-load ./libtncurses.so
+# load ./libtncurses.so
+lappend auto_path /home/user/projects/tncurses/lib
+package require Tncurses
 
 initscr
 set hasIc [has_ic]
