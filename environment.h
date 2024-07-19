@@ -53,4 +53,17 @@ static int Has_Il_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int KillChar_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"killchar\"");
+
+  char kllCh= killchar();
+
+  char str[4];
+  sprintf(str, "%c", kllCh);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
 #endif /* ENVIRONMENT_H */

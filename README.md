@@ -157,6 +157,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - erasechar;
 - has_ic;
 - has_il;
+- killchar;
 
 Not supported
 - erasewchar;
