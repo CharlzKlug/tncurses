@@ -5,9 +5,10 @@ lappend auto_path /home/user/projects/tncurses/lib
 package require Tncurses
 
 tncurses::initscr
-set hasIc [tncurses::has_ic]
-if {$hasIc} {
-    tncurses::addstr "Current terminal has insert- and delete- capabilities.\n"
+set hasIl [tncurses::has_il]
+if {$hasIl} {
+    tncurses::addstr "Current terminal has insert- and delete-line\
+ capabilities.\n"
 } else {
     addstr "Current terminal has not insert- and delete- capabilities.\n"
 }

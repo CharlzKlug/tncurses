@@ -9,6 +9,8 @@
 #include "colors.h"
 #include "environment.h"
 
+#define NS "tncurses"
+
 static int Initscr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   initscr();
 
@@ -1461,164 +1463,201 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_PkgProvide(interp, "Tncurses", "1.0") == TCL_ERROR) {
     return TCL_ERROR;
   }
-  Tcl_CreateObjCommand(interp, "initscr", Initscr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "printw", PrintW_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "refresh", Refresh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "getch", GetCh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "endwin", EndWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "newwin", NewWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "addstr", AddStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvwaddstr", MvWAddStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "noecho", NoEcho_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wrefresh", WRefresh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "touchwin", TouchWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "addch", AddCh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "waddstr", WAddStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "delwin", DelWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "getmaxyx", GetMaxYX_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "start_color", Start_Color_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "init_pair", Init_Pair_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wbkgd", WBkgd_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "waddch", WAddCh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wgetch", WGetCh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "subwin", SubWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "bkgd", Bkgd_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "derwin", DerWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wclear", WClear_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "overlay", Overlay_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "overwrite", OverWrite_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "copywin", CopyWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "dupwin", DupWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "scrollok", ScrollOk_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "getmaxy", GetMaxY_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvprintw", MvPrintW_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "scroll", Scroll_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "scrl", Scrl_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wscrl", WScrl_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvwin", MvWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "touchline", TouchLine_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "COLOR_PAIR", COLOR_PAIR_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "newpad", NewPad_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "prefresh", PRefresh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "subpad", SubPad_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "pnoutrefresh", PNOutRefresh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "doupdate", DoUpdate_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "pechochar", PEchoChar_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "slk_init", SLK_Init_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "slk_set", SLK_Set_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "slk_refresh", SLK_Refresh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "slk_restore", SLK_Restore_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "slk_clear", SLK_Clear_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "keypad", KeyPad_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "KEY_F", KEY_F_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "NCURSES_MOUSE_VERSION", NCURSES_MOUSE_VERSION_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "ALL_MOUSE_EVENTS", ALL_MOUSE_EVENTS_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mousemask", MouseMask_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON1_RELEASED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON1_PRESSED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON1_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON1_DOUBLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON1_TRIPLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON2_RELEASED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON2_PRESSED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON2_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON2_DOUBLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON2_TRIPLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON3_RELEASED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON3_PRESSED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON3_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON3_DOUBLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON3_TRIPLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON4_RELEASED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON4_PRESSED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON4_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON4_DOUBLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "BUTTON4_TRIPLE_CLICKED", ButtonsEvents_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "KEY_MOUSE", KEY_MOUSE_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "getmouse", GetMouse_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "move", Move_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "clrtoeol", ClrToEol_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvaddch", MvAddCh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "clear", Clear_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvaddstr", MvAddStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "curs_set", Curs_Set_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "box", Box_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "border", Border_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "hline", HLine_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "vline", VLine_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvhline", MvHLine_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvvline", MvVLine_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "scr_dump", Scr_Dump_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "scr_restore", Scr_Restore_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "putwin", PutWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "getwin", GetWin_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvwaddch", MvWAddCh_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_ATTRIBUTES", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_NORMAL", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_STANDOUT", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_UNDERLINE", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_REVERSE", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_BLINK", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_DIM", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_BOLD", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_ALTCHARSET", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_INVIS", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_PROTECT", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_HORIZONTAL", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_LEFT", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_LOW", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_RIGHT", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_TOP", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_VERTICAL", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_ITALIC", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "addchstr", AddChStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "addchnstr", AddChNStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "waddchstr", WAddChStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "waddchnstr", WAddChNStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvaddchstr", MvAddChStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvaddchnstr", MvAddChNStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvwaddchstr", MvWAddChStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvwaddchnstr", MvWAddChNStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "addnstr", AddNStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "waddnstr", WAddNStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvaddnstr", MvAddNStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvwaddnstr", MvWAddNStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "assume_default_colors",
+  Tcl_CreateNamespace(interp, NS, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::initscr", Initscr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::printw", PrintW_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::refresh", Refresh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::getch", GetCh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::endwin", EndWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::newwin", NewWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::addstr", AddStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvwaddstr", MvWAddStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::noecho", NoEcho_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wrefresh", WRefresh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::touchwin", TouchWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::addchNS", AddCh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::waddstr", WAddStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::delwin", DelWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::getmaxyx", GetMaxYX_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::start_color", Start_Color_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::init_pair", Init_Pair_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wbkgd", WBkgd_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::waddch", WAddCh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wgetch", WGetCh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::subwin", SubWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::bkgd", Bkgd_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::derwin", DerWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wclear", WClear_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::overlay", Overlay_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::overwrite", OverWrite_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::copywin", CopyWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::dupwin", DupWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::scrollok", ScrollOk_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::getmaxy", GetMaxY_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvprintw", MvPrintW_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::scroll", Scroll_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::scrl", Scrl_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wscrl", WScrl_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvwin", MvWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::touchline", TouchLine_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::COLOR_PAIR", COLOR_PAIR_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::newpad", NewPad_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::prefresh", PRefresh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::subpad", SubPad_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::pnoutrefresh", PNOutRefresh_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::doupdate", DoUpdate_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::pechochar", PEchoChar_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::slk_init", SLK_Init_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::slk_set", SLK_Set_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::slk_refresh", SLK_Refresh_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::slk_restore", SLK_Restore_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::slk_clear", SLK_Clear_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::keypad", KeyPad_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::KEY_F", KEY_F_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::NCURSES_MOUSE_VERSION",
+		       NCURSES_MOUSE_VERSION_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::ALL_MOUSE_EVENTS", ALL_MOUSE_EVENTS_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mousemask", MouseMask_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON1_RELEASED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON1_PRESSED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON1_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON1_DOUBLE_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON1_TRIPLE_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON2_RELEASED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON2_PRESSED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON2_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON2_DOUBLE_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON2_TRIPLE_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON3_RELEASED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON3_PRESSED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON3_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON3_DOUBLE_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON3_TRIPLE_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON4_RELEASED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON4_PRESSED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON4_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON4_DOUBLE_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::BUTTON4_TRIPLE_CLICKED", ButtonsEvents_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::KEY_MOUSE", KEY_MOUSE_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::getmouse", GetMouse_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::move", Move_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::clrtoeol", ClrToEol_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvaddch", MvAddCh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::clear", Clear_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvaddstr", MvAddStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::curs_set", Curs_Set_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::box", Box_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::border", Border_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::hline", HLine_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::vline", VLine_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvhline", MvHLine_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvvline", MvVLine_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::scr_dump", Scr_Dump_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::scr_restore", Scr_Restore_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::putwin", PutWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::getwin", GetWin_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvwaddch", MvWAddCh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_ATTRIBUTES", Attribute_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_NORMAL", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_STANDOUT", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_UNDERLINE", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_REVERSE", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_BLINK", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_DIM", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_BOLD", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_ALTCHARSET", Attribute_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_INVIS", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_PROTECT", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_HORIZONTAL", Attribute_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_LEFT", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_LOW", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_RIGHT", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_TOP", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_VERTICAL", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_ITALIC", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::addchstr", AddChStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::addchnstr", AddChNStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::waddchstr", WAddChStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::waddchnstr", WAddChNStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvaddchstr", MvAddChStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvaddchnstr", MvAddChNStr_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvwaddchstr", MvWAddChStr_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvwaddchnstr", MvWAddChNStr_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::addnstr", AddNStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::waddnstr", WAddNStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvaddnstr", MvAddNStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvwaddnstr", MvWAddNStr_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::assume_default_colors",
 		       Assume_Default_Colors_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "COLOR_BLACK", ColorCode_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "COLOR_RED", ColorCode_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "COLOR_GREEN", ColorCode_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "COLOR_YELLOW", ColorCode_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "COLOR_BLUE", ColorCode_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "COLOR_MAGENTA", ColorCode_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "COLOR_CYAN", ColorCode_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "COLOR_WHITE", ColorCode_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "attr_get", Attr_Get_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "attrset", AttrSet_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "A_COLOR", Attribute_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "attr_off", Attr_Off_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "attr_on", Attr_On_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "attroff", AttrOff_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wattroff", WAttrOff_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "attron", AttrOn_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wattron", WAttrOn_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wattrset", WAttrSet_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "color_set", Color_Set_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wcolor_set", WColor_Set_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "standend", Standend_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wstandend", WStandend_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "standout", StandOut_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wattr_get", WAttr_Get_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wattr_off", WAttr_Off_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wattr_on", WAttr_On_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "attr_set", Attr_Set_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wattr_set", WAttr_Set_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "chgat", ChGAt_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "wchgat", WChGAt_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvchgat", MvChGAt_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "mvwchgat", MvWChGAt_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "baudrate", BaudRate_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "erasechar", EraseChar_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, "has_ic", Has_Ic_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::COLOR_BLACK", ColorCode_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::COLOR_RED", ColorCode_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::COLOR_GREEN", ColorCode_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::COLOR_YELLOW", ColorCode_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::COLOR_BLUE", ColorCode_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::COLOR_MAGENTA", ColorCode_Cmd,
+		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::COLOR_CYAN", ColorCode_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::COLOR_WHITE", ColorCode_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::attr_get", Attr_Get_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::attrset", AttrSet_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::A_COLOR", Attribute_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::attr_off", Attr_Off_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::attr_on", Attr_On_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::attroff", AttrOff_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wattroff", WAttrOff_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::attron", AttrOn_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wattron", WAttrOn_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wattrset", WAttrSet_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::color_set", Color_Set_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wcolor_set", WColor_Set_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::standend", Standend_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wstandend", WStandend_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::standout", StandOut_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wattr_get", WAttr_Get_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wattr_off", WAttr_Off_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wattr_on", WAttr_On_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::attr_set", Attr_Set_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wattr_set", WAttr_Set_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::chgat", ChGAt_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wchgat", WChGAt_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvchgat", MvChGAt_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvwchgat", MvWChGAt_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::baudrate", BaudRate_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::erasechar", EraseChar_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::has_ic", Has_Ic_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::has_il", Has_Ic_Cmd, NULL, NULL);
   return TCL_OK;
 }
