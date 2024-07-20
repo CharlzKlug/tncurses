@@ -66,4 +66,23 @@ static int KillChar_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int LongName_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"longname\"");
+
+  char *name;
+  name= longname();
+
+  if (NULL == name) {
+    Tcl_AppendResult(interp, "error occured while longname", NULL);
+    return TCL_ERROR;
+  }
+
+  char str[256];
+  sprintf(str, "%s", name);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
 #endif /* ENVIRONMENT_H */
