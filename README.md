@@ -163,3 +163,4 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 Not supported
 - erasewchar;
 - killwchar;
+- term_attrs;
