@@ -85,4 +85,18 @@ static int LongName_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int TermAttrs_Cmd(ClientData cdata, Tcl_Interp *interp,
+			 int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"termattrs\"");
+
+  chtype attributes;
+  attributes= termattrs();
+
+  char str[64];
+  sprintf(str, "%d", attributes);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
 #endif /* ENVIRONMENT_H */
