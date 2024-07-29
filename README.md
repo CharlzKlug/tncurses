@@ -162,6 +162,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - termattrs;
 - termname;
 - beep;
+- flash;
 
 Not supported
 - erasewchar;

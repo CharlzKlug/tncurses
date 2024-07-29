@@ -6,5 +6,6 @@ package require Tncurses
 
 tncurses::initscr
 tncurses::beep
+tncurses::flash
 tncurses::getch
 tncurses::endwin
