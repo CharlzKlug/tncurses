@@ -160,6 +160,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - killchar;
 - longname;
 - termattrs;
+- termname;
 
 Not supported
 - erasewchar;

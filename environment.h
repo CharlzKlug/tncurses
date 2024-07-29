@@ -99,4 +99,20 @@ static int TermAttrs_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int TermName_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"termname\"");
+
+  char *terminal_name;
+  terminal_name= termname();
+
+  if (terminal_name == NULL) {
+    Tcl_AppendResult(interp, "error occured while termname", NULL);
+    return TCL_ERROR;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(terminal_name, -1));
+  return TCL_OK;
+}
+
 #endif /* ENVIRONMENT_H */
