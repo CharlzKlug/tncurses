@@ -1,24 +1,25 @@
 #!/usr/bin/env tclsh
 
-load ./libtncurses.so
+lappend auto_path [pwd]/lib
+package require Tncurses
 
-initscr
-start_color
-init_pair 1 COLOR_WHITE COLOR_BLUE
-init_pair 2 COLOR_RED COLOR_YELLOW
-init_pair 3 COLOR_CYAN COLOR_WHITE
+tncurses::initscr
+tncurses::start_color
+tncurses::init_pair 1 COLOR_WHITE COLOR_BLUE
+tncurses::init_pair 2 COLOR_RED COLOR_YELLOW
+tncurses::init_pair 3 COLOR_CYAN COLOR_WHITE
 
-set sonny [subwin stdscr 5 20 10 30]
-set babygirl [derwin stdscr 5 20 1 50]
-set color_pair [COLOR_PAIR 1]
+set sonny [tncurses::subwin stdscr 5 20 10 30]
+set babygirl [tncurses::derwin stdscr 5 20 1 50]
+set color_pair [tncurses::COLOR_PAIR 1]
 set color_pair_length [string length $color_pair]
-bkgd [COLOR_PAIR 1]
-addstr "Hello, son, hello baby girl. My color_pair is '$color_pair'. Length is $color_pair_length"
-wbkgd $sonny [COLOR_PAIR 2]
-waddstr $sonny "Hello, Dad."
-wbkgd $babygirl [COLOR_PAIR 3]
-waddstr $babygirl "Hello, Papa."
-refresh
-getch
+tncurses::bkgd [tncurses::COLOR_PAIR 1]
+tncurses::addstr "Hello, son, hello baby girl. My color_pair is '$color_pair'. Length is $color_pair_length"
+tncurses::wbkgd $sonny [tncurses::COLOR_PAIR 2]
+tncurses::waddstr $sonny "Hello, Dad."
+tncurses::wbkgd $babygirl [tncurses::COLOR_PAIR 3]
+tncurses::waddstr $babygirl "Hello, Papa."
+tncurses::refresh
+tncurses::getch
 
-endwin
+tncurses::endwin
