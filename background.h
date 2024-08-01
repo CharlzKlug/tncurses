@@ -86,4 +86,17 @@ static int WBkgd_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
   return TCL_OK;
 }
 
+static int BkgdSet_Cmd(ClientData cdata, Tcl_Interp *interp,
+		       int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"bkgdset chtype\"");
+
+  int chvar;
+  Tcl_GetIntFromObj(interp, objv[1], &chvar);
+
+  bkgdset(chvar);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 #endif /* BACKGROUND_H */

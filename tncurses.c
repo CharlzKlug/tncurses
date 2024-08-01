@@ -1583,5 +1583,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::termname", TermName_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::beep", Beep_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::flash", Flash_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::bkgdset", BkgdSet_Cmd, NULL, NULL);
   return TCL_OK;
 }
