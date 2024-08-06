@@ -3,48 +3,48 @@
 load ./libtncurses.so
 source ./mkchtype.tcl
 
-initscr
-refresh
-start_color
-init_pair 1 COLOR_BLACK COLOR_BLUE
-init_pair 2 COLOR_BLACK COLOR_RED
-init_pair 3 COLOR_BLACK COLOR_GREEN
-init_pair 4 COLOR_BLACK COLOR_CYAN
+tncurses::initscr
+tncurses::refresh
+tncurses::start_color
+tncurses::init_pair 1 COLOR_BLACK COLOR_BLUE
+tncurses::init_pair 2 COLOR_BLACK COLOR_RED
+tncurses::init_pair 3 COLOR_BLACK COLOR_GREEN
+tncurses::init_pair 4 COLOR_BLACK COLOR_CYAN
 
-set resolution [getmaxyx stdscr]
+set resolution [tncurses::getmaxyx stdscr]
 set halfy [expr {[lindex $resolution 0] / 2}]
 set halfx [expr {[lindex $resolution 1] / 2}]
 
-set a [newwin $halfy $halfx 0 0]
-set b [newwin $halfy $halfx 0 $halfx]
-set c [newwin $halfy $halfx $halfy 0]
-set d [newwin $halfy $halfx $halfy $halfx]
+set a [tncurses::newwin $halfy $halfx 0 0]
+set b [tncurses::newwin $halfy $halfx 0 $halfx]
+set c [tncurses::newwin $halfy $halfx $halfy 0]
+set d [tncurses::newwin $halfy $halfx $halfy $halfx]
 
-wbkgd $a [COLOR_PAIR 1]
-mvwaddstr $a 0 0 "This is window A\n"
-wrefresh $a
+tncurses::wbkgd $a [tncurses::COLOR_PAIR 1]
+tncurses::mvwaddstr $a 0 0 "This is window A\n"
+tncurses::wrefresh $a
 
-wbkgd $b [COLOR_PAIR 2]
-mvwaddstr $b 0 0 "This is window B\n"
-wrefresh $b
+tncurses::wbkgd $b [tncurses::COLOR_PAIR 2]
+tncurses::mvwaddstr $b 0 0 "This is window B\n"
+tncurses::wrefresh $b
 
-wbkgd $c [COLOR_PAIR 3]
-mvwaddstr $c 0 0 "This is window C\n"
-wrefresh $c
+tncurses::wbkgd $c [tncurses::COLOR_PAIR 3]
+tncurses::mvwaddstr $c 0 0 "This is window C\n"
+tncurses::wrefresh $c
 
-wbkgd $d [COLOR_PAIR 4]
-mvwaddstr $d 0 0 "This is window D\n"
-wrefresh $d
+tncurses::wbkgd $d [tncurses::COLOR_PAIR 4]
+tncurses::mvwaddstr $d 0 0 "This is window D\n"
+tncurses::wrefresh $d
 
 while true {
-    set ch [wgetch $a]
-    waddch $b [chtype $ch 0]
-    waddch $c [chtype $ch 0]
-    waddch $d [chtype $ch 0]
-    wrefresh $b
-    wrefresh $c
-    wrefresh $d
+    set ch [tncurses::wgetch $a]
+    tncurses::waddch $b [chtype $ch 0]
+    tncurses::waddch $c [chtype $ch 0]
+    tncurses::waddch $d [chtype $ch 0]
+    tncurses::wrefresh $b
+    tncurses::wrefresh $c
+    tncurses::wrefresh $d
     if {$ch eq "~"} {break}
 }
 
-endwin
+tncurses::endwin
