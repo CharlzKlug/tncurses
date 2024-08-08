@@ -166,6 +166,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - bkgdset;
 - wbkgdset;
 - getbkgd;
+- wborder;
 
 Not supported
 - erasewchar;
