@@ -1111,27 +1111,6 @@ static int Curs_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
-static int HLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  CHECK_ARGUMENTS(3, "wrong # args");
-
-  int ch;
-  if(Tcl_GetIntFromObj(interp, objv[1], &ch) == TCL_ERROR) {
-    ch= Tcl_GetString(objv[1])[0];
-  }
-
-  int n;
-  Tcl_GetIntFromObj(interp, objv[2], &n);
-
-  int result= hline(ch, n);
-
-  if(result == OK) {
-    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-    return TCL_OK;
-  }
-
-  Tcl_AppendResult(interp, "error occured while hline", NULL);
-  return TCL_ERROR;
-}
 
 static int VLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(3, "wrong # args");
