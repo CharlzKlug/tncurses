@@ -2,9 +2,9 @@
 
 load ./libtncurses.so
 
-initscr
-box stdscr | 205
-refresh
-getch
+tncurses::initscr
+tncurses::box stdscr 42 43
+tncurses::refresh
+tncurses::getch
 
-endwin
+tncurses::endwin

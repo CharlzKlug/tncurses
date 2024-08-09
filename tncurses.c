@@ -1111,33 +1111,6 @@ static int Curs_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_ERROR;
 }
 
-static int Box_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  CHECK_ARGUMENTS(4, "wrong # args");
-
-  WINDOW* win;
-  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
-
-  int verch;
-  if(Tcl_GetIntFromObj(interp, objv[2], &verch) == TCL_ERROR) {
-    verch= Tcl_GetString(objv[2])[0];
-  }
-
-  int horch;
-  if(Tcl_GetIntFromObj(interp, objv[3], &horch) == TCL_ERROR) {
-    horch= Tcl_GetString(objv[3])[0];
-  }
-
-  int result= box(win, verch, horch);
-
-  if(result == OK) {
-    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-    return TCL_OK;
-  }
-
-  Tcl_AppendResult(interp, "error occured while box", NULL);
-  return TCL_ERROR;
-}
-
 static int HLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(3, "wrong # args");
 
