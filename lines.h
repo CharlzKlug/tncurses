@@ -198,4 +198,32 @@ static int WVLine_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int MvHLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(5, "wrong # args: should be \"mvhline y x chtype int\"");
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[1], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[2], &x);
+
+  int ch;
+  if(Tcl_GetIntFromObj(interp, objv[3], &ch) == TCL_ERROR) {
+    ch= Tcl_GetString(objv[3])[0];
+  }
+
+  int n;
+  Tcl_GetIntFromObj(interp, objv[4], &n);
+
+  int result= mvhline(y, x, ch, n);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while mvhline", NULL);
+  return TCL_ERROR;
+}
+
 #endif /* LINES_H */
