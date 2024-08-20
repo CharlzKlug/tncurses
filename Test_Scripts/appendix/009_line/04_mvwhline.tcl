@@ -8,7 +8,6 @@ tncurses::refresh
 tncurses::getch
 
 set newWindow [tncurses::newwin 10 30 4 26]
-# tncurses::wborder $newWindow 0 0 0 0 0 0 0 0
 tncurses::mvwhline $newWindow 0 0 0 5
 tncurses::wrefresh $newWindow
 tncurses::getch
