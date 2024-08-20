@@ -226,4 +226,37 @@ static int MvHLine_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *
   return TCL_ERROR;
 }
 
+static int MvWHLine_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(6, "wrong # args: should be \"mvwhline "
+		  "window y x chtype length\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[2], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[3], &x);
+
+  int ch;
+  if(Tcl_GetIntFromObj(interp, objv[4], &ch) == TCL_ERROR) {
+    ch= Tcl_GetString(objv[3])[0];
+  }
+
+  int n;
+  Tcl_GetIntFromObj(interp, objv[5], &n);
+
+  int result= mvwhline(win, y, x, ch, n);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while mvwhline", NULL);
+  return TCL_ERROR;
+}
+
 #endif /* LINES_H */
