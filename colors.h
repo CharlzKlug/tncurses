@@ -41,7 +41,7 @@ static int Assume_Default_Colors_Cmd(ClientData cdata, Tcl_Interp *interp, int o
 
   int bg;
   Tcl_GetIntFromObj(interp, objv[2], &bg);
-  
+
   int result= assume_default_colors(fg, bg);
 
   if(result == OK) {
@@ -51,6 +51,21 @@ static int Assume_Default_Colors_Cmd(ClientData cdata, Tcl_Interp *interp, int o
 
   Tcl_AppendResult(interp, "error occured while assume_default_colors", NULL);
   return TCL_ERROR;
+}
+
+static int Can_Change_Color_Cmd(ClientData cdata, Tcl_Interp *interp,
+				int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"can_change_color\"");
+
+  bool result= can_change_color();
+
+  if(result) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("1", -1));
+    return TCL_OK;
+  }
+
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("0", -1));
+    return TCL_OK;
 }
 
 #endif /* COLORS_H */
