@@ -68,4 +68,10 @@ static int Can_Change_Color_Cmd(ClientData cdata, Tcl_Interp *interp,
     return TCL_OK;
 }
 
+static int Start_Color_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  start_color();
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 #endif /* COLORS_H */
