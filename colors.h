@@ -74,4 +74,33 @@ static int Start_Color_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_O
   return TCL_OK;
 }
 
+static int Init_Pair_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  if (objc != 4) {
+    Tcl_AppendResult(interp, "wrong # args: should be \"init_pair pair foregroundColor backgroundColor\"", NULL);
+    return TCL_ERROR;
+  }
+
+  int pair_number;
+  if (Tcl_GetIntFromObj(interp, objv[1], &pair_number) == TCL_ERROR) {
+    Tcl_AppendResult(interp, "pair number must be integer", NULL);
+    return TCL_ERROR;
+  }
+
+  NCURSES_COLOR_T foreground_color;
+  if (string_to_color(Tcl_GetString(objv[2]), &foreground_color) == (-1)) {
+    Tcl_AppendResult(interp, "wrong foreground color", NULL);
+    return TCL_ERROR;
+  }
+
+  NCURSES_COLOR_T background_color;
+  if (string_to_color(Tcl_GetString(objv[3]), &background_color) == (-1)) {
+    Tcl_AppendResult(interp, "wrong background color", NULL);
+    return TCL_ERROR;
+  }
+
+  init_pair(pair_number, foreground_color, background_color);
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 #endif /* COLORS_H */
