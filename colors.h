@@ -2,33 +2,34 @@
 #define COLORS_H
 
 static int ColorCode_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  CHECK_ARGUMENTS(1, "wrong # args");
+  CHECK_ARGUMENTS(1, "wrong # args : should be \"color_name\"");
 
-  char str[16];
-  if (strcmp(Tcl_GetString(objv[0]), "COLOR_BLACK") == 0) {
+  char str[16]= "";
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::COLOR_BLACK") == 0) {
     sprintf(str, "%d", COLOR_BLACK);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "COLOR_RED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::COLOR_RED") == 0) {
     sprintf(str, "%d", COLOR_RED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "COLOR_GREEN") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::COLOR_GREEN") == 0) {
     sprintf(str, "%d", COLOR_GREEN);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "COLOR_YELLOW") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::COLOR_YELLOW") == 0) {
     sprintf(str, "%d", COLOR_YELLOW);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "COLOR_BLUE") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::COLOR_BLUE") == 0) {
     sprintf(str, "%d", COLOR_BLUE);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "COLOR_MAGENTA") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::COLOR_MAGENTA") == 0) {
     sprintf(str, "%d", COLOR_MAGENTA);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "COLOR_CYAN") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::COLOR_CYAN") == 0) {
     sprintf(str, "%d", COLOR_CYAN);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "COLOR_WHITE") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::COLOR_WHITE") == 0) {
     sprintf(str, "%d", COLOR_WHITE);
   }
+
   Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
   return TCL_OK;
 }
@@ -86,21 +87,56 @@ static int Init_Pair_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj
     return TCL_ERROR;
   }
 
-  NCURSES_COLOR_T foreground_color;
-  if (string_to_color(Tcl_GetString(objv[2]), &foreground_color) == (-1)) {
-    Tcl_AppendResult(interp, "wrong foreground color", NULL);
-    return TCL_ERROR;
-  }
+  int foreground_color;
+  Tcl_GetIntFromObj(interp, objv[2], &foreground_color);
 
-  NCURSES_COLOR_T background_color;
-  if (string_to_color(Tcl_GetString(objv[3]), &background_color) == (-1)) {
-    Tcl_AppendResult(interp, "wrong background color", NULL);
-    return TCL_ERROR;
-  }
+  int background_color;
+  Tcl_GetIntFromObj(interp, objv[3], &background_color);
 
   init_pair(pair_number, foreground_color, background_color);
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
+}
+
+static int Init_Color_Cmd(ClientData cdata, Tcl_Interp *interp,
+			  int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(5, "wrong # args: should be \"init_color color "
+		  "value_r value_g value_b\", values must be "
+		  "between 0 and 1000");
+
+  int color;
+  Tcl_GetIntFromObj(interp, objv[1], &color);
+
+  int value_r;
+  Tcl_GetIntFromObj(interp, objv[2], &value_r);
+  if (value_r < 0 || 1000 < value_r) {
+    Tcl_AppendResult(interp, "value_r must be between 0 and 1000", NULL);
+    return TCL_ERROR;
+  }
+
+  int value_g;
+  Tcl_GetIntFromObj(interp, objv[3], &value_g);
+  if (value_g < 0 || 1000 < value_g) {
+    Tcl_AppendResult(interp, "value_g must be between 0 and 1000", NULL);
+    return TCL_ERROR;
+  }
+
+  int value_b;
+  Tcl_GetIntFromObj(interp, objv[4], &value_b);
+  if (value_b < 0 || 1000 < value_b) {
+    Tcl_AppendResult(interp, "value_b must be between 0 and 1000", NULL);
+    return TCL_ERROR;
+  }
+
+  int result= init_color(color, value_r, value_g, value_b);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while init_color", NULL);
+  return TCL_ERROR;
 }
 
 #endif /* COLORS_H */
