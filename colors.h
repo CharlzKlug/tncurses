@@ -154,4 +154,24 @@ static int Has_Colors_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int Color_Content_Cmd(ClientData cdata, Tcl_Interp *interp,
+			     int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(5, "wrong # args: should be \"color_content color\"");
+
+  int color;
+  Tcl_GetIntFromObj(interp, objv[1], &color);
+
+  int r, g, b;
+
+  bool result= color_content(color);
+
+  if(result) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("1", -1));
+    return TCL_OK;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("1", -1));
+  return TCL_OK;
+}
+
 #endif /* COLORS_H */
