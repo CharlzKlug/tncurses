@@ -1382,5 +1382,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
 		       NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::init_color", Init_Color_Cmd,
 		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::has_colors", Has_Colors_Cmd, NULL, NULL);
   return TCL_OK;
 }

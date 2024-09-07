@@ -139,4 +139,19 @@ static int Init_Color_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int Has_Colors_Cmd(ClientData cdata, Tcl_Interp *interp,
+			  int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"has_colors\"");
+
+  bool result= has_colors();
+
+  if(result) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("1", -1));
+    return TCL_OK;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("1", -1));
+  return TCL_OK;
+}
+
 #endif /* COLORS_H */
