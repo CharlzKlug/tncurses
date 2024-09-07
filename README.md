@@ -173,6 +173,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - mvwvline;
 - init_color (Warning: color initialization works not on every terminals!);
 - has_colors;
+- can_change_color;
 
 Not supported
 - erasewchar;
