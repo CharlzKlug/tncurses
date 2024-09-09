@@ -176,4 +176,26 @@ static int Color_Content_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int Pair_Content_Cmd(ClientData cdata, Tcl_Interp *interp,
+			    int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"pair_content pair\"");
+
+  int pair;
+  Tcl_GetIntFromObj(interp, objv[1], &pair);
+
+  short int f, b;
+
+  int result= pair_content(pair, &f, &b);
+
+  if(result == OK) {
+    char str[64];
+    sprintf(str, "%d %d", f, b);
+    Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while pair_content", NULL);
+  return TCL_ERROR;
+}
+
 #endif /* COLORS_H */
