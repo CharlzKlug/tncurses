@@ -11,6 +11,7 @@
 #include "alarm.h"
 #include "background.h"
 #include "lines.h"
+#include "tty_modes.h"
 
 #define NS "tncurses"
 
@@ -1387,5 +1388,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
 		       NULL);
   Tcl_CreateObjCommand(interp, NS "::pair_content", Pair_Content_Cmd, NULL,
 		       NULL);
+  Tcl_CreateObjCommand(interp, NS "::cbreak", CBreak_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::nocbreak", NoCBreak_Cmd, NULL, NULL);
   return TCL_OK;
 }
