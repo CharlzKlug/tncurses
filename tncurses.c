@@ -71,12 +71,6 @@ static int NewWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   return TCL_OK;
 }
 
-static int NoEcho_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  noecho();
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
-}
-
 static int WRefresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   if (objc != 2) {
     return TCL_ERROR;
@@ -1178,7 +1172,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::newwin", NewWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::addstr", AddStr_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::mvwaddstr", MvWAddStr_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, NS "::noecho", NoEcho_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::wrefresh", WRefresh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::touchwin", TouchWin_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::addchNS", AddCh_Cmd, NULL, NULL);
@@ -1390,5 +1383,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
 		       NULL);
   Tcl_CreateObjCommand(interp, NS "::cbreak", CBreak_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::nocbreak", NoCBreak_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::echo", Echo_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::noecho", NoEcho_Cmd, NULL, NULL);
   return TCL_OK;
 }

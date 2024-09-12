@@ -178,6 +178,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - pair_content;
 - cbreak;
 - nocbreak;
+- echo;
 
 Not supported
 - erasewchar;
