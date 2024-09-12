@@ -176,6 +176,8 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - can_change_color;
 - color_content;
 - pair_content;
+- cbreak;
+- nocbreak;
 
 Not supported
 - erasewchar;
