@@ -105,4 +105,24 @@ static int IntrFlush_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int KeyPad_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"keypad window bool");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  bool enable_func_keys;
+  STRING_TO_BOOL(Tcl_GetString(objv[2]), enable_func_keys);
+
+  int result= keypad(win, enable_func_keys);
+
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while keypad", NULL);
+  return TCL_ERROR;
+}
+
 #endif /* TTY_MODES_H */
