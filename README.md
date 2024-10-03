@@ -182,6 +182,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - halfdelay;
 - intrflush;
 - meta;
+- nodelay;
 
 Not supported
 - erasewchar;

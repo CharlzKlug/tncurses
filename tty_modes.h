@@ -145,4 +145,25 @@ static int Meta_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *con
   return TCL_ERROR;
 }
 
+static int NoDelay_Cmd(ClientData cdata, Tcl_Interp *interp,
+		       int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"nodelay window bool");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  bool bf;
+  STRING_TO_BOOL(Tcl_GetString(objv[2]), bf);
+
+  int result= nodelay(win, bf);
+
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while nodelay", NULL);
+  return TCL_ERROR;
+}
+
 #endif /* TTY_MODES_H */
