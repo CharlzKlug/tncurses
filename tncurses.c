@@ -1370,5 +1370,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::meta", Meta_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::nodelay", NoDelay_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::raw", Raw_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::noraw", NoRaw_Cmd, NULL, NULL);
   return TCL_OK;
 }

@@ -177,7 +177,22 @@ static int Raw_Cmd(ClientData cdata, Tcl_Interp *interp,
     return TCL_OK;
   }
 
-  Tcl_AppendResult(interp, "error occured while nodelay", NULL);
+  Tcl_AppendResult(interp, "error occured while raw", NULL);
+  return TCL_ERROR;
+}
+
+static int NoRaw_Cmd(ClientData cdata, Tcl_Interp *interp,
+		     int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"noraw\"");
+
+  int result= noraw();
+
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while noraw", NULL);
   return TCL_ERROR;
 }
 
