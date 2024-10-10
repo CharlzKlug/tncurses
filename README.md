@@ -185,6 +185,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - nodelay;
 - raw;
 - noraw;
+- noqiflush;
 
 Not supported
 - erasewchar;
