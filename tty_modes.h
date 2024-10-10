@@ -250,4 +250,20 @@ static int Timeout_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int WTimeout_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"wtimeout window value\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int timeoutValue;
+  Tcl_GetIntFromObj(interp, objv[2], &timeoutValue);
+
+  wtimeout(win, timeoutValue);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 #endif /* TTY_MODES_H */

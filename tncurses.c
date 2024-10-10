@@ -1375,5 +1375,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::qiflush", QiFlush_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::notimeout", NoTimeout_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::timeout", Timeout_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wtimeout", WTimeout_Cmd, NULL, NULL);
   return TCL_OK;
 }

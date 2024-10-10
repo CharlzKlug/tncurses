@@ -189,6 +189,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - qiflush;
 - notimeout;
 - timeout;
+- wtimeout;
 
 Not supported
 - erasewchar;
