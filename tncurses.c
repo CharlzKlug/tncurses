@@ -181,11 +181,11 @@ static int WGetCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
     win= (WINDOW*)pointer;
   }
 
-  char ch;
+  unsigned char ch;
   ch= wgetch(win);
 
-  char str[2];
-  sprintf(str, "%c", ch);
+  char str[64];
+  sprintf(str, "%d", ch);
   Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
   return TCL_OK;
 }
