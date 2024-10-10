@@ -237,4 +237,17 @@ static int NoTimeout_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int Timeout_Cmd(ClientData cdata, Tcl_Interp *interp,
+		       int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"timeout value\"");
+
+  int timeoutValue;
+  Tcl_GetIntFromObj(interp, objv[1], &timeoutValue);
+
+  timeout(timeoutValue);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 #endif /* TTY_MODES_H */

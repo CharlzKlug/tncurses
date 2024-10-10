@@ -1,17 +1,28 @@
 #!/usr/bin/env tclsh
 
+proc demoFunction {input_timeout} {
+    tncurses::clear
+    tncurses::timeout ${input_timeout}
+    tncurses::addstr "Timeout demo script. Now timeout is ${input_timeout}\n"
+    tncurses::addstr "Press any key to view key code or press \[Enter\] to continue...\n"
+    set counter 0
+    while {1} {
+	set ch [tncurses::wgetch stdscr]
+	tncurses::move 2 0
+	tncurses::addstr "Counter: $counter"
+	tncurses::move 3 0
+	if {$ch != "255"} {tncurses::addstr "Last pressed key code: $ch "}
+	if {$ch == 10} {break}
+	set counter [expr $counter + 1]
+    }
+}
+
 load ./libtncurses.so
 
 tncurses::initscr
-tncurses::addstr "Raw demo script. Try to press \[Ctrl\] + \[C\].\n"
-tncurses::addstr "Press \[Enter\] to exit...\n"
 tncurses::noecho
 tncurses::notimeout stdscr true
-
-while {1} {
-    set ch [tncurses::wgetch stdscr]
-    if {$ch != "-1"} {tncurses::addstr "$ch "}
-    if {$ch == 10} {break}
-}
-
+demoFunction -1
+demoFunction 0
+demoFunction 1000
 tncurses::endwin
