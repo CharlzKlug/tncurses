@@ -191,6 +191,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - timeout;
 - wtimeout;
 - typeahead;
+- erase;
 
 Not supported
 - erasewchar;
