@@ -1379,5 +1379,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::wtimeout", WTimeout_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::typeahead", TypeAhead_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::erase", Erase_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::werase", WErase_Cmd, NULL, NULL);
   return TCL_OK;
 }
