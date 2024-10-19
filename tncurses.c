@@ -878,64 +878,64 @@ static int ButtonsEvents_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl
   CHECK_ARGUMENTS(1, "wrong # args");
 
   char str[64];
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_RELEASED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON1_RELEASED") == 0) {
     sprintf(str, "%ld", BUTTON1_RELEASED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_PRESSED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON1_PRESSED") == 0) {
     sprintf(str, "%ld", BUTTON1_PRESSED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON1_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON1_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_DOUBLE_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON1_DOUBLE_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON1_DOUBLE_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON1_TRIPLE_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON1_TRIPLE_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON1_TRIPLE_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON2_RELEASED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON2_RELEASED") == 0) {
     sprintf(str, "%ld", BUTTON2_RELEASED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON2_PRESSED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON2_PRESSED") == 0) {
     sprintf(str, "%ld", BUTTON2_PRESSED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON2_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON2_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON2_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON2_DOUBLE_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON2_DOUBLE_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON2_DOUBLE_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON2_TRIPLE_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON2_TRIPLE_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON2_TRIPLE_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON3_RELEASED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON3_RELEASED") == 0) {
     sprintf(str, "%ld", BUTTON3_RELEASED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON3_PRESSED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON3_PRESSED") == 0) {
     sprintf(str, "%ld", BUTTON3_PRESSED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON3_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON3_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON3_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON3_DOUBLE_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON3_DOUBLE_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON3_DOUBLE_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON3_TRIPLE_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON3_TRIPLE_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON3_TRIPLE_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON4_RELEASED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON4_RELEASED") == 0) {
     sprintf(str, "%ld", BUTTON4_RELEASED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON4_PRESSED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON4_PRESSED") == 0) {
     sprintf(str, "%ld", BUTTON4_PRESSED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON4_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON4_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON4_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON4_DOUBLE_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON4_DOUBLE_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON4_DOUBLE_CLICKED);
   }
-  if (strcmp(Tcl_GetString(objv[0]), "BUTTON4_TRIPLE_CLICKED") == 0) {
+  if (strcmp(Tcl_GetString(objv[0]), "tncurses::BUTTON4_TRIPLE_CLICKED") == 0) {
     sprintf(str, "%ld", BUTTON4_TRIPLE_CLICKED);
   }
   Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
@@ -1017,20 +1017,6 @@ static int ClrToEol_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   }
 
   Tcl_AppendResult(interp, "error occured while clrtoeol", NULL);
-  return TCL_ERROR;
-}
-
-static int Clear_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  CHECK_ARGUMENTS(1, "wrong # args");
-
-  int result= clear();
-
-  if(result == OK) {
-    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-    return TCL_OK;
-  }
-
-  Tcl_AppendResult(interp, "error occured while clear", NULL);
   return TCL_ERROR;
 }
 
