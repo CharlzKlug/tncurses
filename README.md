@@ -194,6 +194,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - erase;
 - werase;
 - clrtobot;
+- wclrtobot;
 
 Not supported
 - erasewchar;

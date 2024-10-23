@@ -303,7 +303,6 @@ static int DerWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   return TCL_OK;
 }
 
-
 static int Overlay_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(3, "wrong # args");
 
@@ -1337,5 +1336,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::erase", Erase_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::werase", WErase_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::clrtobot", ClrToBot_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wclrtobot", WClrToBot_Cmd, NULL, NULL);
   return TCL_OK;
 }
