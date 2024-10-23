@@ -975,20 +975,6 @@ static int Move_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *con
   return TCL_ERROR;
 }
 
-static int ClrToEol_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  CHECK_ARGUMENTS(1, "wrong # args");
-
-  int result= clrtoeol();
-
-  if(result == OK) {
-    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-    return TCL_OK;
-  }
-
-  Tcl_AppendResult(interp, "error occured while clrtoeol", NULL);
-  return TCL_ERROR;
-}
-
 static int Curs_Set_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(2, "wrong # args");
 

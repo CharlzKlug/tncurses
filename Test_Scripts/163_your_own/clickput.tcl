@@ -12,7 +12,9 @@ tncurses::addstr "Click on the screen with the mouse."
 while {1} {
     set ch [tncurses::getch]
     if {$ch == [tncurses::KEY_MOUSE]} {
-	set mevent_list [tncurses::getmouse]
+	if {[catch {set mevent_list [tncurses::getmouse]}]} {
+	    continue
+	}
 	tncurses::clrtoeol
 	set y [lindex $mevent_list 2]
 	set x [lindex $mevent_list 1]
