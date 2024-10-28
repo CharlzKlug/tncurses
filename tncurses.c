@@ -13,6 +13,7 @@
 #include "lines.h"
 #include "tty_modes.h"
 #include "clear.h"
+#include "output.h"
 
 #define NS "tncurses"
 
@@ -73,17 +74,13 @@ static int NewWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
 }
 
 static int WRefresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  if (objc != 2) {
-    return TCL_ERROR;
-  }
-  char* buffer= Tcl_GetString(objv[1]);
-  void* pointer= NULL;
-  if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) {
-    Tcl_AppendResult(interp, "Bad scan", NULL);
-    return TCL_ERROR;
-  }
-  WINDOW* window= (WINDOW*)pointer;
-  wrefresh(window);
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"wrefresh window\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  wrefresh(win);
+
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
@@ -1324,5 +1321,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::clrtobot", ClrToBot_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::wclrtobot", WClrToBot_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::wclrtoeol", WClrToEol_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::clearok", ClearOk_Cmd, NULL, NULL);
   return TCL_OK;
 }
