@@ -56,4 +56,20 @@ static int IdcOk_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int ImmedOk_Cmd(ClientData cdata, Tcl_Interp *interp,
+		       int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"immedok window bool\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  bool bf;
+  STRING_TO_BOOL(Tcl_GetString(objv[2]), bf);
+
+  immedok(win, bf);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 #endif /* OUTPUT_H */
