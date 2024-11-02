@@ -200,6 +200,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - idlok;
 - idcok;
 - immedok;
+- leaveok;
 
 Not supported
 - erasewchar;
