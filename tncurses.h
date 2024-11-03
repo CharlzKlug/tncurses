@@ -41,10 +41,12 @@ NCURSES_COLOR_T ncurses_colors[(COLORS_COUNT)] = {
   } while (0)
 
 #define STRING_TO_WINDOW(string_buffer, window) do {			\
-    if (strcmp(string_buffer, "stdscr") == 0) {			\
+    if (strcmp(string_buffer, "stdscr") == 0 ||			\
+	strcmp(string_buffer, "STDSCR") == 0) {			\
       window= stdscr;							\
     } else {								\
-      if (window != NULL & strcmp(string_buffer, "curscr") == 0) {	\
+      if (strcmp(string_buffer, "curscr") == 0 ||			\
+	  strcmp(string_buffer, "CURSCR") == 0 ) {			\
 	window= curscr;						\
       } else {								\
 	void* pointer= NULL;						\

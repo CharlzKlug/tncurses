@@ -88,4 +88,26 @@ static int LeaveOk_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int SetScrReg_Cmd(ClientData cdata, Tcl_Interp *interp,
+			 int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"setscrreg top bot\"");
+
+  int top;
+  Tcl_GetIntFromObj(interp, objv[1], &top);
+
+  int bot;
+  Tcl_GetIntFromObj(interp, objv[2], &bot);
+
+  int result= setscrreg(top, bot);
+
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("error occured while setscrreg",
+					    -1));
+  return TCL_ERROR;
+}
+
 #endif /* OUTPUT_H */
