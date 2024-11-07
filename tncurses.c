@@ -1327,5 +1327,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::immedok", ImmedOk_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::leaveok", LeaveOk_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::setscrreg", SetScrReg_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wsetscrreg", WSetScrReg_Cmd, NULL, NULL);
   return TCL_OK;
 }

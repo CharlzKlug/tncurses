@@ -110,4 +110,29 @@ static int SetScrReg_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int WSetScrReg_Cmd(ClientData cdata, Tcl_Interp *interp,
+			  int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(4, "wrong # args: should be \"wsetscrreg window top bot\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int top;
+  Tcl_GetIntFromObj(interp, objv[2], &top);
+
+  int bot;
+  Tcl_GetIntFromObj(interp, objv[3], &bot);
+
+  int result= wsetscrreg(win, top, bot);
+
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("error occured while wsetscrreg",
+					    -1));
+  return TCL_ERROR;
+}
+
 #endif /* OUTPUT_H */
