@@ -150,4 +150,36 @@ static int ScrollOk_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj 
   return TCL_OK;
 }
 
+static int NL_Cmd(ClientData cdata, Tcl_Interp *interp,
+		  int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"nl\"");
+
+  int result= nl();
+
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("error occured while nl",
+					    -1));
+  return TCL_ERROR;
+}
+
+static int NoNL_Cmd(ClientData cdata, Tcl_Interp *interp,
+		    int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"nonl\"");
+
+  int result= nonl();
+
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("error occured while nonl",
+					    -1));
+  return TCL_ERROR;
+}
+
 #endif /* OUTPUT_H */

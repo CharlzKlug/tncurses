@@ -12,7 +12,7 @@ static int AddCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
     Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
     return TCL_OK;
   }
-  
+
   Tcl_AppendResult(interp, "error occured while addch", NULL);
   return TCL_ERROR;
 }
