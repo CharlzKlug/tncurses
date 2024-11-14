@@ -14,4 +14,23 @@ static int COLS_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int GetYX_Cmd(ClientData cdata, Tcl_Interp *interp,
+		     int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"getyx window\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int y= 0;
+  int x= 0;
+
+  getyx(win, y, x);
+
+  char str[16];
+  sprintf(str, "%d %d", y, x);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+  return TCL_OK;
+}
+
 #endif /* COORDINATES_H */
