@@ -206,6 +206,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - COLOR_PAIRS;
 - getyx;
 - getparyx;
+- getbegyx;
 
 Not supported
 - erasewchar;
