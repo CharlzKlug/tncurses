@@ -189,49 +189,25 @@ static int WGetCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *c
   return TCL_OK;
 }
 
-static int SubWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  if (objc != 6) {
-    Tcl_AppendResult(interp, "wrong # args", NULL);
-    return TCL_ERROR;
-  }
+static int SubWin_Cmd(ClientData cdata, Tcl_Interp *interp,
+		      int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(6, "wrong # args: should be \"subwin window nlines"
+		  " ncols begin_y begin_x");
 
-  char* buffer= Tcl_GetString(objv[1]);
   WINDOW* win;
-
-  if (strcmp(buffer, "stdscr") == 0) {
-    win= stdscr;
-  } else {
-    void* pointer= NULL;
-    if (buffer == NULL || sscanf(buffer, "%p", &pointer) != 1) {
-      Tcl_AppendResult(interp, "Bad scan", NULL);
-      return TCL_ERROR;
-    }
-    win= (WINDOW*)pointer;
-  }
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
 
   int rows;
-  if (Tcl_GetIntFromObj(interp, objv[2], &rows) == TCL_ERROR) {
-    Tcl_AppendResult(interp, "Not int value!", NULL);
-    return TCL_ERROR;
-  }
+  Tcl_GetIntFromObj(interp, objv[2], &rows);
 
   int cols;
-  if (Tcl_GetIntFromObj(interp, objv[3], &cols) == TCL_ERROR) {
-    Tcl_AppendResult(interp, "Not int value!", NULL);
-    return TCL_ERROR;
-  }
+  Tcl_GetIntFromObj(interp, objv[3], &cols);
 
   int y;
-  if (Tcl_GetIntFromObj(interp, objv[4], &y) == TCL_ERROR) {
-    Tcl_AppendResult(interp, "Not int value!", NULL);
-    return TCL_ERROR;
-  }
+  Tcl_GetIntFromObj(interp, objv[4], &y);
 
   int x;
-  if (Tcl_GetIntFromObj(interp, objv[5], &x) == TCL_ERROR) {
-    Tcl_AppendResult(interp, "Not int value!", NULL);
-    return TCL_ERROR;
-  }
+  Tcl_GetIntFromObj(interp, objv[5], &x);
 
   WINDOW *window= subwin(win, rows, cols, y, x);
   if (window == NULL) {
@@ -1320,5 +1296,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::COLOR_PAIRS", COLOR_PAIRS_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::COLS", COLS_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::getyx", GetYX_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::getparyx", GetParYX_Cmd, NULL, NULL);
   return TCL_OK;
 }
