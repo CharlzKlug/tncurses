@@ -15,6 +15,7 @@
 #include "clear.h"
 #include "output.h"
 #include "coordinates.h"
+#include "miscellaneous.h"
 
 #define NS "tncurses"
 
@@ -1274,6 +1275,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::COLS", COLS_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::getyx", GetYX_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::getparyx", GetParYX_Cmd, NULL, NULL);
-  Tcl_CreateObjCommand(interp, NS "::getbegyx", GetParYX_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::getbegyx", GetBegYX_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::unctrl", UnCtrl_Cmd, NULL, NULL);
   return TCL_OK;
 }
