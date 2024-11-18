@@ -213,3 +213,4 @@ Not supported
 - erasewchar;
 - killwchar;
 - term_attrs;
+- wunctrl;
