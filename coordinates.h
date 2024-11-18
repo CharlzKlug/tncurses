@@ -71,4 +71,20 @@ static int GetBegYX_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int GetMaxYX_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"getmaxyx window\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int maxy= 0;
+  int maxx= 0;
+
+  getmaxyx(win, maxy, maxx);
+
+  Tcl_SetObjResult(interp, Tcl_ObjPrintf("%d %d", maxy, maxx));
+  return TCL_OK;
+}
+
 #endif /* COORDINATES_H */
