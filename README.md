@@ -210,6 +210,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - unctrl;
 - keyname;
 - nofilter;
+- use_env;
 
 Not supported
 - erasewchar;

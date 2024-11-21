@@ -59,4 +59,17 @@ static int NoFilter_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int Use_Env_Cmd(ClientData cdata, Tcl_Interp *interp,
+		       int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"use_env boolValue\"");
+
+  bool f;
+  STRING_TO_BOOL(Tcl_GetString(objv[1]), f);
+
+  use_env(f);
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 #endif /* MISCELLANEOUS_H */
