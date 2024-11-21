@@ -215,3 +215,4 @@ Not supported
 - killwchar;
 - term_attrs;
 - wunctrl;
+- key_name;

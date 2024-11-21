@@ -1278,5 +1278,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::getbegyx", GetBegYX_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::unctrl", UnCtrl_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::keyname", KeyName_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::filter", Filter_Cmd, NULL, NULL);
   return TCL_OK;
 }
