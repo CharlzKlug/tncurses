@@ -129,4 +129,23 @@ static int GetWin_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int Delay_Output_Cmd(ClientData cdata, Tcl_Interp *interp,
+			    int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args : should be \"delay_output milliseconds\"");
+
+  int ms;
+  Tcl_GetIntFromObj(interp, objv[1], &ms);
+
+  int result= delay_output(ms);
+
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while delay_output", NULL);
+  return TCL_ERROR;
+
+}
+
 #endif /* MISCELLANEOUS_H */

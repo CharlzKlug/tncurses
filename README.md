@@ -211,6 +211,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - keyname;
 - nofilter;
 - use_env;
+- delay_output;
 
 Not supported
 - erasewchar;
