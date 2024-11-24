@@ -4,29 +4,29 @@ load ./libtncurses.so
 
 set FILENAME "window.tmp"
 
-initscr
-start_color
-init_pair 1 COLOR_WHITE COLOR_BLUE
+tncurses::initscr
+tncurses::start_color
+tncurses::init_pair 1 [tncurses::COLOR_WHITE] [tncurses::COLOR_BLUE]
 
-addstr "Creating new window\n"
-refresh
+tncurses::addstr "Creating new window\n"
+tncurses::refresh
 
-if {[catch {set win [newwin 5 20 7 30]}]} {
+if {[catch {set win [tncurses::newwin 5 20 7 30]}]} {
     bomb "Unable to create window\n"
 }
-wbkgd $win [COLOR_PAIR 1]
-mvwaddstr $win 1 2 "This program was\n"
-mvwaddstr $win 2 5 "created by\n"
-mvwaddstr $win 3 5 "Dan Gookin\n"
-wrefresh $win
-getch
+tncurses::wbkgd $win [tncurses::COLOR_PAIR 1]
+tncurses::mvwaddstr $win 1 2 "This program was\n"
+tncurses::mvwaddstr $win 2 5 "created by\n"
+tncurses::mvwaddstr $win 3 5 "Dan Gookin\n"
+tncurses::wrefresh $win
+tncurses::getch
 
-if {[catch {putwin $win $FILENAME}]} {
-    addstr "Error putting window to disk\n"
+if {[catch {tncurses::putwin $win $FILENAME}]} {
+    tncurses::addstr "Error putting window to disk\n"
 } else {
-    addstr "Window put to disk\n"
+    tncurses::addstr "Window put to disk\n"
 }
-refresh
-getch
+tncurses::refresh
+tncurses::getch
 
-endwin
+tncurses::endwin
