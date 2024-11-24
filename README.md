@@ -212,6 +212,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - nofilter;
 - use_env;
 - delay_output;
+- flushinp;
 
 Not supported
 - erasewchar;

@@ -145,7 +145,21 @@ static int Delay_Output_Cmd(ClientData cdata, Tcl_Interp *interp,
 
   Tcl_AppendResult(interp, "error occured while delay_output", NULL);
   return TCL_ERROR;
+}
 
+static int FlushInp_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args : should be \"flushinp\"");
+
+  int result= flushinp();
+
+  if (result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while flushinp", NULL);
+  return TCL_ERROR;
 }
 
 #endif /* MISCELLANEOUS_H */
