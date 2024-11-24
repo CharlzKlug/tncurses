@@ -1230,5 +1230,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::delay_output", Delay_Output_Cmd,
 		       NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::flushinp", FlushInp_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::LINES", LINES_Cmd, NULL, NULL);
   return TCL_OK;
 }

@@ -14,6 +14,16 @@ static int COLS_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int LINES_Cmd(ClientData cdata, Tcl_Interp *interp,
+		     int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"LINES\"");
+
+  int result= LINES;
+
+  Tcl_SetObjResult(interp, Tcl_ObjPrintf("%d", result));
+  return TCL_OK;
+}
+
 static int GetYX_Cmd(ClientData cdata, Tcl_Interp *interp,
 		     int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(2, "wrong # args: should be \"getyx window\"");
