@@ -3,27 +3,27 @@
 load ./libtncurses.so
 
 proc bomb {inputMessage} {
-    addstr $inputMessage
-    refresh
-    getch
-    endwin
+    tncurses::addstr $inputMessage
+    tncurses::refresh
+    tncurses::getch
+    tncurses::endwin
     exit 1
 }
 
 set FILENAME "window.tmp"
 
-initscr
-start_color
-init_pair 1 COLOR_WHITE COLOR_BLUE
+tncurses::initscr
+tncurses::start_color
+tncurses::init_pair 1 [tncurses::COLOR_WHITE] [tncurses::COLOR_BLUE]
 
-addstr "Press Enter to read the window from disk:\n"
-refresh
-getch
+tncurses::addstr "Press Enter to read the window from disk:\n"
+tncurses::refresh
+tncurses::getch
 
-if {[catch {set win [getwin $FILENAME]}]} {
+if {[catch {set win [tncurses::getwin $FILENAME]}]} {
     bomb "Unable to read/create window\n"
 }
-wrefresh $win
-getch
+tncurses::wrefresh $win
+tncurses::getch
 
-endwin
+tncurses::endwin

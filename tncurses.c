@@ -960,33 +960,6 @@ static int Scr_Restore_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_O
   return TCL_ERROR;
 }
 
-static int GetWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  CHECK_ARGUMENTS(2, "wrong # args");
-
-  char* filename;
-  filename= Tcl_GetString(objv[1]);
-
-  FILE *wfile;
-  wfile= fopen(filename, "r");
-  if(wfile == NULL) {
-    Tcl_AppendResult(interp, "can't open file while getwin", NULL);
-    return TCL_ERROR;
-  }
-
-  WINDOW *window= getwin(wfile);
-  fclose(wfile);
-
-  if(window == NULL) {
-    Tcl_AppendResult(interp, "error occured while getwin (no window pointer)", NULL);
-    return TCL_ERROR;
-  }
-
-  char hexstr[24];
-  sprintf(hexstr, "%p", (void*)window);
-  Tcl_SetObjResult(interp, Tcl_NewStringObj(hexstr, -1));
-  return TCL_OK;
-}
-
 int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL) {
     return TCL_ERROR;
