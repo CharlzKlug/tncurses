@@ -1,0 +1,18 @@
+#ifndef PRINT_H
+#define PRINT_H
+
+static int PrintW_Cmd(ClientData cdata, Tcl_Interp *interp,
+		      int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"printw message\"");
+  int result= printw(Tcl_GetString(objv[1]));
+
+  if (result == ERR) {
+    Tcl_AppendResult(interp, "Error occured while printw", NULL);
+    return TCL_ERROR;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
+#endif /* PRINT_H */

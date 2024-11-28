@@ -17,21 +17,13 @@
 #include "coordinates.h"
 #include "miscellaneous.h"
 #include "overlap.h"
+#include "print.h"
 
 #define NS "tncurses"
 
 static int Initscr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   initscr();
 
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
-}
-
-static int PrintW_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  if (objc != 2) {
-    return TCL_ERROR;
-  }
-  printw(Tcl_GetString(objv[1]));
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }
