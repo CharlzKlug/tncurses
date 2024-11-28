@@ -214,6 +214,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - delay_output;
 - flushinp;
 - LINES;
+- wprintw;
 
 Not supported
 - erasewchar;

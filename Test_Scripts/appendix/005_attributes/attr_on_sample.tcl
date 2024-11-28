@@ -2,33 +2,33 @@
 
 load ./libtncurses.so
 
-initscr
+tncurses::initscr
 # attrset [expr [A_BOLD] | [A_REVERSE] | [A_BLINK]]
-set attrList [attr_get]
+set attrList [tncurses::attr_get]
 set attributes [lindex $attrList 0]
 
-addstr "Attributes active in this window:\n"
-if {[expr $attributes & [A_COLOR]]} {printw "Color w/pair $cpair\n"}
-if {[expr $attributes & [A_STANDOUT]]} {addstr "Standout\n"}
-if {[expr $attributes & [A_REVERSE]]} {addstr "Reverse\n"}
-if {[expr $attributes & [A_BLINK]]} {addstr "Blink\n"}
-if {[expr $attributes & [A_DIM]]} {addstr "Dim\n"}
-if {[expr $attributes & [A_BOLD]]} {addstr "Bold\n"}
-refresh
-getch
+tncurses::addstr "Attributes active in this window:\n"
+if {[expr $attributes & [tncurses::A_COLOR]]} {tncurses::printw "Color w/pair $cpair\n"}
+if {[expr $attributes & [tncurses::A_STANDOUT]]} {tncurses::addstr "Standout\n"}
+if {[expr $attributes & [tncurses::A_REVERSE]]} {tncurses::addstr "Reverse\n"}
+if {[expr $attributes & [tncurses::A_BLINK]]} {tncurses::addstr "Blink\n"}
+if {[expr $attributes & [tncurses::A_DIM]]} {tncurses::addstr "Dim\n"}
+if {[expr $attributes & [tncurses::A_BOLD]]} {tncurses::addstr "Bold\n"}
+tncurses::refresh
+tncurses::getch
 
-attr_on [A_BLINK]
-set attrList [attr_get]
+tncurses::attr_on [tncurses::A_BLINK]
+set attrList [tncurses::attr_get]
 set attributes [lindex $attrList 0]
 
-addstr "Attributes active in this window:\n"
-if {[expr $attributes & [A_COLOR]]} {printw "Color w/pair $cpair\n"}
-if {[expr $attributes & [A_STANDOUT]]} {addstr "Standout\n"}
-if {[expr $attributes & [A_REVERSE]]} {addstr "Reverse\n"}
-if {[expr $attributes & [A_BLINK]]} {addstr "Blink\n"}
-if {[expr $attributes & [A_DIM]]} {addstr "Dim\n"}
-if {[expr $attributes & [A_BOLD]]} {addstr "Bold\n"}
-refresh
-getch
+tncurses::addstr "Attributes active in this window:\n"
+if {[expr $attributes & [tncurses::A_COLOR]]} {tncurses::printw "Color w/pair $cpair\n"}
+if {[expr $attributes & [tncurses::A_STANDOUT]]} {tncurses::addstr "Standout\n"}
+if {[expr $attributes & [tncurses::A_REVERSE]]} {tncurses::addstr "Reverse\n"}
+if {[expr $attributes & [tncurses::A_BLINK]]} {tncurses::addstr "Blink\n"}
+if {[expr $attributes & [tncurses::A_DIM]]} {tncurses::addstr "Dim\n"}
+if {[expr $attributes & [tncurses::A_BOLD]]} {tncurses::addstr "Bold\n"}
+tncurses::refresh
+tncurses::getch
 
-endwin
+tncurses::endwin

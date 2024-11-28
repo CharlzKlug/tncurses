@@ -15,4 +15,22 @@ static int PrintW_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int WPrintW_Cmd(ClientData cdata, Tcl_Interp *interp,
+		      int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"wprintw window message\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int result= wprintw(win, "%s", Tcl_GetString(objv[2]));
+
+  if (result == ERR) {
+    Tcl_AppendResult(interp, "Error occured while wprintw", NULL);
+    return TCL_ERROR;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 #endif /* PRINT_H */
