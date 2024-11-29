@@ -35,7 +35,7 @@ static int WPrintW_Cmd(ClientData cdata, Tcl_Interp *interp,
 
 static int MvPrintW_Cmd(ClientData cdata, Tcl_Interp *interp,
 			int objc, Tcl_Obj *const objv[]) {
-  CHECK_ARGUMENTS(4, "wrong # args: should be \"mvprintw x y string\"");
+  CHECK_ARGUMENTS(4, "wrong # args: should be \"mvprintw y x string\"");
 
   int y;
   Tcl_GetIntFromObj(interp, objv[1], &y);
@@ -51,6 +51,30 @@ static int MvPrintW_Cmd(ClientData cdata, Tcl_Interp *interp,
   }
 
   Tcl_AppendResult(interp, "error occured while mvprintw", NULL);
+  return TCL_ERROR;
+}
+
+static int MvWPrintW_Cmd(ClientData cdata, Tcl_Interp *interp,
+			 int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(5, "wrong # args: should be \"mvwprintw window y x string\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[2], &y);
+
+  int x;
+  Tcl_GetIntFromObj(interp, objv[3], &x);
+
+  char *string = Tcl_GetString(objv[4]);
+
+  if (mvwprintw(win, y, x, string) == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while mvwprintw", NULL);
   return TCL_ERROR;
 }
 
