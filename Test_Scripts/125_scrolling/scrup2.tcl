@@ -2,21 +2,21 @@
 
 load ./libtncurses.so
 
-initscr
+tncurses::initscr
 
-set maxy [getmaxy stdscr]
+set maxy [tncurses::getmaxy stdscr]
 
-scrollok stdscr true
+tncurses::scrollok stdscr true
 
 for {set y 0} {$y < $maxy} {incr y} {
-    mvprintw $y 0 "This is boring text written to line $y."
+    tncurses::mvprintw $y 0 "This is boring text written to line $y."
 }
 
-refresh
-getch
+tncurses::refresh
+tncurses::getch
 
-scrl 3
-refresh
-getch
+tncurses::scrl 3
+tncurses::refresh
+tncurses::getch
 
-endwin
+tncurses::endwin
