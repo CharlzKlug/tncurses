@@ -223,3 +223,4 @@ Not supported
 - term_attrs;
 - wunctrl;
 - key_name;
+- vwprintw;
