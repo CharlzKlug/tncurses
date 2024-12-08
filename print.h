@@ -78,4 +78,24 @@ static int MvWPrintW_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int VW_PrintW_Cmd(ClientData cdata, Tcl_Interp *interp,
+			 int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"vw_printw window string\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+
+  char *string = Tcl_GetString(objv[2]);
+
+  va_list some_args; // Workaround for undefined behaviour of 'vw_printw'
+  va_end(some_args);
+  if (vw_printw(win, string, some_args) == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while vw_printw", NULL);
+  return TCL_ERROR;
+}
+
 #endif /* PRINT_H */
