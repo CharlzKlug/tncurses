@@ -218,6 +218,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - mvwprintw;
 - vw_printw;
 - def_prog_mode;
+- def_shell_mode;
 
 Not supported
 - erasewchar;
