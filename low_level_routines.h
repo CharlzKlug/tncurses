@@ -11,9 +11,7 @@ static int Curs_Set_Cmd(ClientData cdata, Tcl_Interp *interp,
   int result= curs_set(cursor_visibility);
 
   if(result != ERR) {
-    char str[4];
-    sprintf(str, "%d", result);
-    Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1));
+    Tcl_SetObjResult(interp, Tcl_ObjPrintf("%d", result));
     return TCL_OK;
   }
 
