@@ -220,6 +220,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - def_prog_mode;
 - def_shell_mode;
 - reset_prog_mode;
+- reset_shell_mode;
 
 Not supported
 - erasewchar;

@@ -64,4 +64,19 @@ static int Reset_Prog_Mode_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int Reset_Shell_Mode_Cmd(ClientData cdata, Tcl_Interp *interp,
+				int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"reset_shell_mode\"");
+
+  int result= reset_shell_mode();
+
+  if (ERR == result) {
+    Tcl_AppendResult(interp, "Error occured in \"reset_shell_mode\"", NULL);
+    return TCL_ERROR;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 #endif /* LOW_LEVEL_ROUTINES */
