@@ -22,6 +22,11 @@ static int Def_Shell_Mode_Cmd(ClientData cdata, Tcl_Interp *interp,
 
   int result= def_shell_mode();
 
+  if (ERR == result) {
+    Tcl_AppendResult(interp, "Error occured in \"def_shell_mode\"", NULL);
+    return TCL_ERROR;
+  }
+
   Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
   return TCL_OK;
 }

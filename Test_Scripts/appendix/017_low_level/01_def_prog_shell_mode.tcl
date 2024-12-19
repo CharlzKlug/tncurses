@@ -2,5 +2,8 @@
 
 load ./libtncurses.so
 
-tncurses::def_prog_mode
+tncurses::initscr
 tncurses::def_shell_mode
+tncurses::def_prog_mode
+tncurses::reset_prog_mode
+tncurses::endwin
