@@ -1109,5 +1109,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
 		       NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::def_shell_mode", Def_Shell_Mode_Cmd,
 		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::reset_prog_mode", Reset_Prog_Mode_Cmd,
+		       NULL, NULL);
   return TCL_OK;
 }
