@@ -1115,5 +1115,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
 		       NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::resetty", ReseTTY_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::savetty", SaveTTY_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::getsyx", GetsYX_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::setsyx", SetsYX_Cmd, NULL, NULL);
   return TCL_OK;
 }

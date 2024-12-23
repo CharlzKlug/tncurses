@@ -223,6 +223,8 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - reset_shell_mode;
 - resetty;
 - savetty;
+- getsyx;
+- setsyx;
 
 Not supported
 - erasewchar;
