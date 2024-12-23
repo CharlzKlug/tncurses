@@ -134,4 +134,22 @@ static int SetsYX_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+static int NapMS_Cmd(ClientData cdata, Tcl_Interp *interp,
+		     int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"napms milliseconds\"");
+
+  int ms;
+  Tcl_GetIntFromObj(interp, objv[1], &ms);
+
+  int result= napms(ms);
+
+  if (ERR == result) {
+    Tcl_AppendResult(interp, "Error occured in \"napms\"", NULL);
+    return TCL_ERROR;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+  return TCL_OK;
+}
+
 #endif /* LOW_LEVEL_ROUTINES */

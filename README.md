@@ -225,6 +225,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - savetty;
 - getsyx;
 - setsyx;
+- napms;
 
 Not supported
 - erasewchar;
