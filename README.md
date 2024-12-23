@@ -233,3 +233,4 @@ Not supported
 - wunctrl;
 - key_name;
 - vwprintw;
+- ripoffline;
