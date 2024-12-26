@@ -19,6 +19,7 @@
 #include "overlap.h"
 #include "print.h"
 #include "low_level_routines.h"
+#include "extensions.h"
 
 #define NS "tncurses"
 
@@ -1118,5 +1119,7 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::getsyx", GetsYX_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::setsyx", SetsYX_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::napms", NapMS_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::curses_version", Curses_Version_Cmd,
+		       NULL, NULL);
   return TCL_OK;
 }
