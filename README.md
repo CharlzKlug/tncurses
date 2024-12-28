@@ -227,6 +227,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - setsyx;
 - napms;
 - curses_version;
+- use_extended_names;
 
 Not supported
 - erasewchar;
