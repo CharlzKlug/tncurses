@@ -1124,5 +1124,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
 		       NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::use_extended_names", Use_Extended_Names_Cmd,
 		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::delch", DelCh_Cmd, NULL, NULL);
   return TCL_OK;
 }
