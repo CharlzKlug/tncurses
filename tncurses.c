@@ -20,6 +20,7 @@
 #include "print.h"
 #include "low_level_routines.h"
 #include "extensions.h"
+#include "delete.h"
 
 #define NS "tncurses"
 
