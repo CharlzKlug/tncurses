@@ -1,7 +1,8 @@
 #ifndef DELETE_H
 #define DELETE_H
 
-static int DelCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+static int DelCh_Cmd(ClientData cdata, Tcl_Interp *interp,
+		     int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(1, "wrong # args: should be \"delch\"");
 
   int result= delch();
@@ -15,7 +16,8 @@ static int DelCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
   return TCL_ERROR;
 }
 
-static int WDelCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
+static int WDelCh_Cmd(ClientData cdata, Tcl_Interp *interp,
+		      int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(2, "wrong # args: should be \"wdelch window\"");
 
   WINDOW* win;
