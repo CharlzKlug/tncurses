@@ -34,4 +34,24 @@ static int WDelCh_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int MVDelCh_Cmd(ClientData cdata, Tcl_Interp *interp,
+		       int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(3, "wrong # args: should be \"mvdelch y x\"");
+
+  int y;
+  Tcl_GetIntFromObj(interp, objv[1], &y);
+  int x;
+  Tcl_GetIntFromObj(interp, objv[2], &x);
+
+  int result= mvdelch(y, x);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while mvdelch", NULL);
+  return TCL_ERROR;
+}
+
 #endif /* DELETE_H */
