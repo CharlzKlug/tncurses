@@ -230,6 +230,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - use_extended_names;
 - delch;
 - wdelch;
+- mvdelch;
 
 Not supported
 - erasewchar;
