@@ -21,6 +21,7 @@
 #include "low_level_routines.h"
 #include "extensions.h"
 #include "delete.h"
+#include "insert_char.h"
 
 #define NS "tncurses"
 
@@ -1128,5 +1129,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::wdelch", WDelCh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::mvdelch", MVDelCh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::mvwdelch", MVWDelCh_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::mvinsch", MVInsCh_Cmd, NULL, NULL);
   return TCL_OK;
 }
