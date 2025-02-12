@@ -62,4 +62,28 @@ static int WInsCh_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int MVWInsCh_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(5, "wrong # args: should be \"mvwinsch window y x chtype\"");
+
+  WINDOW* win;
+  STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
+  int y;
+  Tcl_GetIntFromObj(interp, objv[2], &y);
+  int x;
+  Tcl_GetIntFromObj(interp, objv[3], &x);
+  int input_chtype;
+  Tcl_GetIntFromObj(interp, objv[4], &input_chtype);
+
+  int result= mvwinsch(win, y, x, input_chtype);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while mvwinsch", NULL);
+  return TCL_ERROR;
+}
+
 #endif /* INSERT_CHAR_H */
