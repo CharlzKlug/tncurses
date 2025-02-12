@@ -233,6 +233,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - mvdelch;
 - mvinsch;
 - insch;
+- winsch;
 
 Not supported
 - erasewchar;
