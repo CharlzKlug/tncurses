@@ -1123,8 +1123,8 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::napms", NapMS_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::curses_version", Curses_Version_Cmd,
 		       NULL, NULL);
-  Tcl_CreateObjCommand(interp, NS "::use_extended_names", Use_Extended_Names_Cmd,
-		       NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::use_extended_names",
+		       Use_Extended_Names_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::delch", DelCh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::wdelch", WDelCh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::mvdelch", MVDelCh_Cmd, NULL, NULL);
@@ -1134,5 +1134,6 @@ int DLLEXPORT Tncurses_Init(Tcl_Interp *interp) {
   Tcl_CreateObjCommand(interp, NS "::winsch", WInsCh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::mvwinsch", MVWInsCh_Cmd, NULL, NULL);
   Tcl_CreateObjCommand(interp, NS "::deleteln", DeleteLn_Cmd, NULL, NULL);
+  Tcl_CreateObjCommand(interp, NS "::wdeleteln", WDeleteLn_Cmd, NULL, NULL);
   return TCL_OK;
 }
