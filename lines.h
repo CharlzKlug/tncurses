@@ -336,7 +336,7 @@ static int DeleteLn_Cmd(ClientData cdata, Tcl_Interp *interp,
 
 static int WDeleteLn_Cmd(ClientData cdata, Tcl_Interp *interp,
 			 int objc, Tcl_Obj *const objv[]) {
-  CHECK_ARGUMENTS(2, "wrong # args: should be \"wdeleteln\"");
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"wdeleteln\" window");
 
   WINDOW* win;
   STRING_TO_WINDOW(Tcl_GetString(objv[1]), win);
@@ -349,6 +349,24 @@ static int WDeleteLn_Cmd(ClientData cdata, Tcl_Interp *interp,
   }
 
   Tcl_AppendResult(interp, "error occured while wdeleteln", NULL);
+  return TCL_ERROR;
+}
+
+static int InsDelLn_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(2, "wrong # args: should be \"insdelln\" number");
+
+  int n;
+  Tcl_GetIntFromObj(interp, objv[1], &n);
+
+  int result= insdelln(n);
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while insdelln", NULL);
   return TCL_ERROR;
 }
 
