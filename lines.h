@@ -391,4 +391,19 @@ static int WInsDelLn_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int InsertLn_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"insertln\"");
+
+  int result= insertln();
+
+  if(result == OK) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
+    return TCL_OK;
+  }
+
+  Tcl_AppendResult(interp, "error occured while insertln", NULL);
+  return TCL_ERROR;
+}
+
 #endif /* LINES_H */

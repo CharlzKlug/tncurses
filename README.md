@@ -238,6 +238,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - deleteln;
 - insdelln;
 - winsdelln;
+- insertln;
 
 Not supported
 - erasewchar;
