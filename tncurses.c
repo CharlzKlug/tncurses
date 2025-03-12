@@ -22,15 +22,9 @@
 #include "extensions.h"
 #include "delete.h"
 #include "insert_char.h"
+#include "screen.h"
 
 #define NS "tncurses"
-
-static int Initscr_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  initscr();
-
-  Tcl_SetObjResult(interp, Tcl_NewStringObj("", -1));
-  return TCL_OK;
-}
 
 static int Refresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   refresh();
