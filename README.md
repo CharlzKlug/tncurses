@@ -241,6 +241,7 @@ Use of bkgd: if you want to send a char then use "bkgd .", if you want to send "
 - winsdelln;
 - insertln;
 - winsertln;
+- isendwin;
 
 Not supported
 - erasewchar;

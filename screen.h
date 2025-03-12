@@ -30,4 +30,17 @@ static int EndWin_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_ERROR;
 }
 
+static int IsEndWin_Cmd(ClientData cdata, Tcl_Interp *interp,
+			int objc, Tcl_Obj *const objv[]) {
+  CHECK_ARGUMENTS(1, "wrong # args: should be \"isendwin\"");
+  bool result= isendwin();
+  if(result == TRUE) {
+    Tcl_SetObjResult(interp, Tcl_NewStringObj("TRUE", -1));
+    return TCL_OK;
+  }
+
+  Tcl_SetObjResult(interp, Tcl_NewStringObj("FALSE", -1));
+  return TCL_OK;
+}
+
 #endif /* SCREEN_H */
