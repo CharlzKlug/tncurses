@@ -251,3 +251,6 @@ Not supported
 - key_name;
 - vwprintw;
 - ripoffline;
+- newterm (maybe will be added later);
+- set_term (maybe will be added later);
+- delscreen (maybe will be added later);

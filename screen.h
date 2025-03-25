@@ -43,4 +43,17 @@ static int IsEndWin_Cmd(ClientData cdata, Tcl_Interp *interp,
   return TCL_OK;
 }
 
+/* static int NewTerm_Cmd(ClientData cdata, Tcl_Interp *interp, */
+/*		       int objc, Tcl_Obj *const objv[]) { */
+/*   CHECK_ARGUMENTS(4, "wrong # args: should be \"newterm type outFd inFd\""); */
+
+/*   SCREEN* result= newterm(NULL, stdout, stderr); */
+
+/*   char str[32]= ""; */
+/*   sprintf(str, "%p", (void*)result); */
+/*   printf("%s\n", str); */
+/*   Tcl_SetObjResult(interp, Tcl_NewStringObj(str, -1)); */
+/*   return TCL_OK; */
+/* } */
+
 #endif /* SCREEN_H */
