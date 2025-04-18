@@ -21,40 +21,24 @@ if {$alpha == "NULL"} {
     puts "Problem creating window"
     exit 1
 }
-# attrset [expr [A_BOLD] | [A_REVERSE] | [A_BLINK]]
-# set attrList [attr_get]
-# set attributes [lindex $attrList 0]
 
-# addstr "Attributes active in this window:\n"
-# if {[expr $attributes & [A_COLOR]]} {printw "Color w/pair $cpair\n"}
-# if {[expr $attributes & [A_STANDOUT]]} {addstr "Standout\n"}
-# if {[expr $attributes & [A_REVERSE]]} {addstr "Reverse\n"}
-# if {[expr $attributes & [A_BLINK]]} {addstr "Blink\n"}
-# if {[expr $attributes & [A_DIM]]} {addstr "Dim\n"}
-# if {[expr $attributes & [A_BOLD]]} {addstr "Bold\n"}
-# refresh
-# getch
+tncurses::addstr "Displaying window:\n"
+tncurses::addstr "Press Enter to remove the window:\n"
+tncurses::refresh
+tncurses::wbkgd $alpha [tncurses::COLOR_PAIR 1]
+tncurses::mvwaddstr $alpha 2 12 "Hello!"
+tncurses::wrefresh $alpha
+tncurses::wgetch $alpha
 
-# wstandend stdscr
-# set attrList [attr_get]
-# set attributes [lindex $attrList 0]
+tncurses::delwin $alpha
+tncurses::addstr "Window removed: press Enter to clear it:\n"
+tncurses::refresh
+tncurses::getch
 
-# addstr "Attributes active in this window:\n"
-# if {[expr $attributes & [A_COLOR]]} {printw "Color w/pair $cpair\n"}
-# if {[expr $attributes & [A_STANDOUT]]} {addstr "Standout\n"}
-# if {[expr $attributes & [A_REVERSE]]} {addstr "Reverse\n"}
-# if {[expr $attributes & [A_BLINK]]} {addstr "Blink\n"}
-# if {[expr $attributes & [A_DIM]]} {addstr "Dim\n"}
-# if {[expr $attributes & [A_BOLD]]} {addstr "Bold\n"}
-# refresh
-# getch
+tncurses::touchwin stdscr
+tncurses::addstr "Done!\n"
+tncurses::refresh
+tncurses::getch
 
-# set someWindow [newwin 20 40 7 26]
-# wstandend $someWindow
-# waddstr $someWindow "12345 qwerty"
-
-# wrefresh $someWindow
-
-# getch
-# delwin $someWindow
 tncurses::endwin
+exit 0
