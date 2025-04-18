@@ -41,26 +41,6 @@ static int GetCh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *co
   return TCL_OK;
 }
 
-static int NewWin_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
-  if (objc != 5) {
-    return TCL_ERROR;
-  }
-  int rows;
-  Tcl_GetIntFromObj(interp, objv[1], &rows);
-  int cols;
-  Tcl_GetIntFromObj(interp, objv[2], &cols);
-  int y_org;
-  Tcl_GetIntFromObj(interp, objv[3], &y_org);
-  int x_org;
-  Tcl_GetIntFromObj(interp, objv[4], &x_org);
-  WINDOW *window= newwin(rows, cols, y_org, x_org);
-
-  char hexstr[24];
-  sprintf(hexstr, "%p", (void*)window);
-  Tcl_SetObjResult(interp, Tcl_NewStringObj(hexstr, -1));
-  return TCL_OK;
-}
-
 static int WRefresh_Cmd(ClientData cdata, Tcl_Interp *interp, int objc, Tcl_Obj *const objv[]) {
   CHECK_ARGUMENTS(2, "wrong # args: should be \"wrefresh window\"");
 
