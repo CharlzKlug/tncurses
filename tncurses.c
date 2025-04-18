@@ -23,6 +23,7 @@
 #include "delete.h"
 #include "insert_char.h"
 #include "screen.h"
+#include "window.h"
 
 #define NS "tncurses"
 
